@@ -5,7 +5,7 @@
 css 는  public/css에 저장및 불러오기, 불러올떄는 href="css/file name"  
 javascript는 public/js에 저장및 불러오기  
 image는 public/images에 저장및 불러오기  
-작업 php파일은 resources/views폴터에 뷰클래스명.blade.php 같은 파일명으로 저장  
+작업 php파일은 resources/views폴터에 뷰클래스명.blade.php 같은 파일명으로 저장(.blade.php 은 상수급으로 고정 접미사라서 꼭써줘야하고 뷰클래스명은 프로그램이 인식할수있는 범위내의 파일명이면됨)  
 restful API 같은 라우트처리는 routes/web.php에서 관리  
 등으로 처리  
 기타 폴터별 기능을 알고 싶으면 https://www.lesstif.com/pages/viewpage.action?pageId=24445288 으로 접속  
