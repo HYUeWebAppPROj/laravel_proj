@@ -10,6 +10,9 @@ restful API 같은 라우트처리는 routes/web.php에서 관리
 등으로 처리  
 기타 폴터별 기능을 알고 싶으면 https://www.lesstif.com/pages/viewpage.action?pageId=24445288 으로 접속  
   
-* 실행
+* 실행  
 apache와 같이 쓰고 싶으면 apache설정에서 public 폴터를 가상폴터로 등록 후 가상 폴터의 path로 접속
-단독적으로 쓰고 싶으면 커맨드창에서 이 레포 폴더로 이동후 'php artisan serve' 따옴표안에 있는 명령입력(서버종료할때는 컨트롤버튼+c 누르면됨-맥기준, php는 아마 환경변수에서 경로추가해줘야 동작할듯)
+단독적으로 쓰고 싶으면 커맨드창에서 이 레포 폴더로 이동후 'php artisan serve' 따옴표안에 있는 명령입력(서버종료할때는 컨트롤버튼+c 누르면됨-맥기준, php는 아마 환경변수에서 경로추가해줘야 동작할듯)  
+  
+  
+visual studio code에서 라라벨 개발환경 구축시 참조 사이트: https://medium.com/@ardanirohman/laravel-%EF%B8%8F-visual-studio-code-debug-environment-65440274d3b0
