@@ -17,5 +17,5 @@ apache와 같이 쓰고 싶으면 apache설정에서 public 폴터를 가상폴�
   
 visual studio code에서 라라벨 개발환경 구축시 참조 사이트: https://medium.com/@ardanirohman/laravel-%EF%B8%8F-visual-studio-code-debug-environment-65440274d3b0
 
-~17.10.5
+~17.10.6
 메인페이지에로그인연결
