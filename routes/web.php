@@ -33,7 +33,11 @@ Route::get("/login/github/callback",function(){
     $li["name"] = $user->getNickname();
     $li["numid"] = $user->getId();
     $li["loginprovider"] = "github";
+    try{
     DB::insert("insert into userlist(loginprovider,id,storage_session_id) values(?,?,concat(sha2(?,512),md5(now())));",array("github",$li["name"],"github".$li["name"]));
+    }catch(Exception $e){
+
+    }
     DB::update("update userlist set lastest_logined_date=now() where loginprovider='github' and id=?",array($li["name"]));
     Session::put("logininfo",$li);
     return redirect('/mainpage2');
