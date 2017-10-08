@@ -229,6 +229,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'HTTP'=>GuzzleHttp\Client::class,
     ],
 
 ];

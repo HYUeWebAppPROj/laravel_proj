@@ -24,16 +24,17 @@ Route::get('/mainpage2',function(){
     return View::make("mainpage2")->with("imgpath","images/mainpage")->with("navitems",$navitem);
 });
 Route::get("/login/github",function(){
-    return Socialite::driver('github')->redirect();
+    return Socialite::with('github')->redirect();
 });
 Route::get("/login/github/callback",function(){
-    $user = Socialite::driver('github')->stateless()->user();
+    $user = Socialite::with('github')->stateless()->user();
     $li = array();
     $li["loginsession"] = $user->token;
     $li["name"] = $user->getNickname();
+    //$li["realname"] = $user->get
     $li["numid"] = $user->getId();
+    $li["email"] = $user->getEmail();
     $li["loginprovider"] = "github";
-    $li["test"] = "ls";
     try{
     DB::insert("insert into userlist(loginprovider,id,storage_session_id) values(?,?,concat(sha2(?,512),md5(now())));",array("github",$li["name"],"github".$li["name"]));
     }catch(Exception $e){
