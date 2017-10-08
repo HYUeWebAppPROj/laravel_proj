@@ -31,9 +31,10 @@ Route::get("/login/github/callback",function(){
     $li = array();
     $li["loginsession"] = $user->token;
     $li["name"] = $user->getNickname();
-    //$li["realname"] = $user->get
+    $li["realname"] = $user->getName();
     $li["numid"] = $user->getId();
     $li["email"] = $user->getEmail();
+    $li["avatar"] = $user->getAvatar();
     $li["loginprovider"] = "github";
     try{
     DB::insert("insert into userlist(loginprovider,id,storage_session_id) values(?,?,concat(sha2(?,512),md5(now())));",array("github",$li["name"],"github".$li["name"]));

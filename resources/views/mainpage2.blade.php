@@ -4,9 +4,20 @@
 <title>@yield('title')</title>
 @include("mobileview.init")
 {{HTML::style('css/mainpage2.css')}}
-
+{{HTML::style('css/flex_layout.css')}}
+{{HTML::style('css/fluid_layout.css')}}
+<style>
+.fluid-layout > div{
+    background-color: deepskyblue;
+}
+.fluid-layout > div:first-child{
+    background-color: deeppink;
+    color:white;
+}
+</style>
 </head>
 <body>
+<!--
 <p id="bl" class="btns_layout">
 @if(Session::get("logininfo"))
 <a href="./logout"><button>Log out</button></a>
@@ -14,6 +25,7 @@
 <a href="./login/github"><button>Log in</button></a>
 @endif
 </p>
+-->
 <header>
 <img src="https://images.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="logo image"/>
 
@@ -29,22 +41,23 @@
 	 <a href="#" class="slidesjs-previous slidesjs-navigation">이전</a><!--이전버튼-->
      <a href="#" class="slidesjs-next slidesjs-navigation">다음</a><!--다음버튼-->
     </div>
-    <div class="flex-layout flex-layout-horizontal">
-        <div class="flex-item-lv1">
+    <div class="fluid-layout" >
+        <div class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12">
             <?php if( Session::has("logininfo") ){ ?>
-            <h2>환영합니다 {{Session::get("logininfo")["name"]}}</h2>
-            
+            <p><img  src='{{Session::get("logininfo")["avatar"]}}'/>환영합니다 {{Session::get("logininfo")["name"]}}</p>
             <?php var_dump(Session::get("logininfo"));  ?>
+            <a href="./logout"><button>Log out</button></a>
             <?php } else { ?>
             <form>
                 <input  type="text"></input><br/>
                 <input type="password"></input><br/>
                 <input type="button" value="로그인" />
             </form>
+            <a href="./login/github"><button>Log in</button></a>
                 <a class="btn-oauth-github" href="./login/github">Login with Github</a>
             <?php } ?>
         </div>
-        <div class="flex-item-lv1">
+        <div class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12" >
         공지사항 부분
         </div>
     </div>

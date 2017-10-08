@@ -26,6 +26,7 @@ nav{
     background-color: #FF5E00;
     height: 50px;
 }
+
 nav > ul.menu{
     background-color: #FF5E00;
     display: block;
@@ -39,48 +40,30 @@ nav ul.menu > li{
     height: 100%;
     text-align: center;
 }
-nav ul.menu > li:hover{
+nav ul.menu > li:hover,nav > a:hover{
     background-color: orange;
     -webkit-transition: all 0.4s ease;
 }
-nav ul.menu li > a{
+nav>a>div{
+    vertical-align: middle;
+    text-align: center;
+    margin: auto;
+}
+nav ul.menu li > a,nav > a{
     color:white;
     
     text-align:center;
     text-decoration: none;
-    vertical-align: text-bottom;
+    vertical-align: middle;
     height:100%;
     display: inline-block;
     margin: auto;
     padding:0px;
 }
-nav  li > a:hover{
+nav  li > a:hover,nav > a:hover{
     text-decoration: none;
 }
-.flex-layout {
-    display: -webkit-flex;
-    display:flex;
-}
-.flex-item-lv1{
-    -webkit-flex: 1; /* Safari 6.1+ */
-    -ms-flex: 1; /* IE 10 */ 
-    flex: 1;
-}
-.flex-item-lv2{
-    -webkit-flex: 2; /* Safari 6.1+ */
-    -ms-flex: 2; /* IE 10 */ 
-    flex: 2;
-}
-.flex-item-lv3{
-    -webkit-flex: 3; /* Safari 6.1+ */
-    -ms-flex: 3; /* IE 10 */ 
-    flex: 3;
-}
-.flex-item-lv4{
-    -webkit-flex: 4; /* Safari 6.1+ */
-    -ms-flex: 4; /* IE 10 */ 
-    flex: 4;
-}
+
 .btn-oauth-github{
     background-repeat: no-repeat;
     background-image: url("../images/github.svg");
@@ -112,24 +95,11 @@ a.btn-oauth-github{
 a.btn-oauth-github:visited{
     color:white;
 }
-.flex-layout div{
-    background-color: deepskyblue;
-}
-.flex-layout div:first-child{
-    background-color: deeppink;
-    color:white;
-}
-.flex-layout-horizontal{
-    flex-direction: row;
-}
-.flex-layout-horizontal-reverse{
-    flex-direction: row-reverse;
-}
+
 #slides {
     display:none;
-    width:96vw;
-    margin-left: 2vw;
-    margin-right:2vw;
+    width:100%;
+
     }
     #slides img{
         min-height:99%;
