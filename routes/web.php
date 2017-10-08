@@ -33,6 +33,7 @@ Route::get("/login/github/callback",function(){
     $li["name"] = $user->getNickname();
     $li["numid"] = $user->getId();
     $li["loginprovider"] = "github";
+    $li["test"] = "ls";
     try{
     DB::insert("insert into userlist(loginprovider,id,storage_session_id) values(?,?,concat(sha2(?,512),md5(now())));",array("github",$li["name"],"github".$li["name"]));
     }catch(Exception $e){
@@ -52,5 +53,5 @@ Route::get('/studypage',function(){
     return View::make("studypage")->with("imgpath","images/studypage");
 });
 Route::get('/test', function () {
-    return View::make("test")->with("msg","Hi!, Admin.");
+    return View::make("test")->with("msg","Hi!, Admin3.");
 });

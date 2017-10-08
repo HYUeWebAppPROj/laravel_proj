@@ -18,10 +18,8 @@
 <img src="https://images.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="logo image"/>
 
 <h1>코딩교육사이트</h1>
-
-@yield('title')
 </header>
-@include('mpgnav')
+@include("mpgnav")
 <section>
     <div id="slides">
         <img class="imgad" src="{{asset($imgpath.'/html.jpg')}}"/>
@@ -33,18 +31,18 @@
     </div>
     <div class="flex-layout flex-layout-horizontal">
         <div class="flex-item-lv1">
-            <?php session_start();
-            if( Session::has("logininfo") ){ ?>
+            <?php if( Session::has("logininfo") ){ ?>
             <h2>환영합니다 {{Session::get("logininfo")["name"]}}</h2>
-
-            <? }else{ ?>
+            
+            <?php var_dump(Session::get("logininfo"));  ?>
+            <?php } else { ?>
             <form>
                 <input  type="text"></input><br/>
                 <input type="password"></input><br/>
                 <input type="button" value="로그인" />
             </form>
                 <a class="btn-oauth-github" href="./login/github">Login with Github</a>
-            <? } ?>
+            <?php } ?>
         </div>
         <div class="flex-item-lv1">
         공지사항 부분
