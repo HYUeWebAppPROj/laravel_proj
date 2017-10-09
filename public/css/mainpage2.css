@@ -1,3 +1,13 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+body{
+    margin: 0px;
+    padding:0px;
+    width: 100%;
+    height: 100%;
+}
 header{
     height:5vh;
     min-height: 30px;
@@ -11,8 +21,11 @@ header img:first-child{
     min-width: 27px;
     float:left;
 }
+
 header h1:first-child{
     padding-left: 3vw;
+    text-align: center;
+    vertical-align: top;
 }
 #bl,header .btns_layout{
     float:right;
@@ -27,43 +40,171 @@ nav{
     height: 50px;
 }
 
-nav > ul.menu{
-    background-color: #FF5E00;
-    display: block;
-    height:100%;
-    list-style: none;
-    padding:0;
+
+@media screen and (max-width:767px){
+    nav{
+        margin: 0px;
+        padding:0px;
+        position: fixed;
+        width:100vw;
+        z-index: 11;
+    }
+    nav + *{
+        padding-top:50px;
+    }
+    nav ul.menu > li{
+        
+        text-align: start;
+        padding-left:0.5em;
+    }
+    nav > ul.menu{
+        display: block;
+        width:90vw;
+        list-style: none;
+        height:calc(100vh - 50px);
+        padding:0px;
+       margin:0px;
+       background-color:#FF5E00;
+       overflow-y:scroll;
+       
+    }
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* make scrollbar transparent */
+    }
+    nav ul.menu li div{
+        vertical-align: middle;
+        text-align: start;
+        margin: auto;
+    }
+    nav ul.menu li > a,nav > a{
+        color:white;
+        text-decoration: none;
+    
+        display: inline-block;
+    }
+    nav  li > a:hover,nav > a:hover{
+        text-decoration: none;
+    }
+    nav > input[type=checkbox]:checked ~  ul.menu{
+        display: none;
+        visibility: hidden;
+        -webkit-transition: width 1s ease;
+        transition: width 1s ease;
+    }
+    nav > input[type=checkbox] ~  ul.menu{
+        display:inherit;
+        visibility: inherit;
+        -webkit-transition: width 1s ease;
+        transition: width 1s ease;
+
+    }
     
 }
-nav ul.menu > li{
-    float:left;
-    height: 100%;
+@media screen and (min-width:768px){
+    nav ul.menu > li{
+        float:left;
+        height: 100%;
+        text-align: center;
+    }
+    nav > ul.menu{
+        display: block;
+        height:100%;
+        list-style: none;
+        padding:0;
+    }
+    nav>a>div,nav ul.menu li div{
+        vertical-align: middle;
+        text-align: center;
+        margin: auto;
+    }
+    nav ul.menu li > a,nav > a{
+        color:white;
+        text-decoration: none;
+    
+        display: inline-block;
+    }
+    nav  li > a:hover,nav > a:hover{
+        text-decoration: none;
+    }
+}
+nav .nav-logo{
+    padding:0px;
+    margin:auto;
+    vertical-align: middle;
+    color:white;
+}
+nav .nav-logo img{
+    max-height:40px;
+    max-width:40px;
+    vertical-align: middle;
+   margin:auto;
+}
+nav .nav-logo h1{
+    padding:0px;
+    margin:auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+nav .mobile-menu-btn{
+    vertical-align: top;
+    margin:0px;
+    padding:0px;
+    height:50px;
+    
+}
+
+nav > input[type=checkbox]:first-child{
+    display: none;
+    visibility: hidden;
+}
+nav .mobile-menu-btn   label{
+    background:none;
+    border:none;
+    color:white;
+    font-size:3em;
+    margin:0px;
+    padding:0px;
+    height:50px;
+    padding-left:2vw;
+    padding-right:2vw;
+    width:50px;
+    vertical-align: middle;
     text-align: center;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    text-shadow: black 1.5px 1.5px;
+}
+
+
+nav .mobile-menu-btn label:focus{
+    border:none;
+}
+nav .mobile-menu-btn label:hover{
+    background-color: rgba(128,128,128,50);
+    border-radius: 1em;
+    border:none;
+
 }
 nav ul.menu > li:hover,nav > a:hover{
     background-color: orange;
     -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
 }
-nav>a>div{
-    vertical-align: middle;
-    text-align: center;
-    margin: auto;
-}
-nav ul.menu li > a,nav > a{
+footer{
+    min-height: 70px;
+    height:10vh;
     color:white;
-    
-    text-align:center;
-    text-decoration: none;
-    vertical-align: middle;
-    height:100%;
-    display: inline-block;
-    margin: auto;
-    padding:0px;
+    background-color:#263238;
+    clear:left;
 }
-nav  li > a:hover,nav > a:hover{
-    text-decoration: none;
+.account-image{
+    float:left;
+    max-width:30%;
+    max-height:30%;
+    border-radius: 50%;
+    border-style:solid;
 }
-
 .btn-oauth-github{
     background-repeat: no-repeat;
     background-image: url("../images/github.svg");
@@ -95,7 +236,85 @@ a.btn-oauth-github{
 a.btn-oauth-github:visited{
     color:white;
 }
+.loginform  input[type="text"],.loginform  input[type="password"]{
+    display:block;
+    align-self: center;
+    margin: 1.5em;
+    width:calc(100% - 4em);
+    margin-top: 3%;
+    margin-bottom:3%;
+    text-align: start;
+    min-height:2em;
+    height:calc(2em+5vh);
+    border-radius: 0.5em;
+    text-shadow: gray 0.5px 0.5px;
+    border:none;
+}
+.loginform > input[type="text"],.loginform > input[type="password"]{
+    margin-top:0px;
+}
+.loginform > label{
+    margin-top:0.5em;
+    padding-top:0.5em;
+    margin-left:1em;
+}
+.loginform > input[type=submit]{
+    margin-left:60%;
+    width:calc(39% - 1.5em);
+    margin-right:1.5em;
+    color:white;
+    font-size:1em;
+    transition: all 0.5s;
+    background-color: #9C27B0;
+    border: none;
+}
+.loginform > input[type=submit]:focus{
+    background-color:#6A1B9A;
+    border: none;
+}
+.loginform  input[type="text"][value=""]{
+    background-color: green;
+}
+.divider{
+    position:relative;
+    text-align: center;
+    vertical-align: text-bottom;
+    margin-left:1em;
+    margin-right:1em;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    min-height: 0.5em;
+}
+.divider p{
+    text-align: center;
+    margin:auto;
+    vertical-align: baseline;
+    position: absolute;
+    left:calc(50% - 1.5em);
+    top:0.1em;
+    background-color:deeppink;
+    padding-left:0.5em;
+    padding-right:0.5em;
+}
+.divider hr{
+    position: absolute;
+    height:1px;
+    width:100%;
 
+}
+table.tbl{
+    width:90%;
+    margin:auto;
+    background-color:lightsalmon;
+    border-radius: 1em;
+    border-collapse: collapse;
+}
+table.tbl tr{
+    min-height: 2em;
+}
+table.tbl tr:hover{
+   background-color:rgba(128,128,128,100);
+}
 #slides {
     display:none;
     width:100%;

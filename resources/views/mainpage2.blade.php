@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="{{ app()->getLocale() }}">
 <title>@yield('title')</title>
 @include("mobileview.init")
 {{HTML::style('css/mainpage2.css')}}
 {{HTML::style('css/flex_layout.css')}}
 {{HTML::style('css/fluid_layout.css')}}
+{{HTML::style('css/show_hidden.css')}}
 <style>
 .fluid-layout > div{
     background-color: deepskyblue;
@@ -26,10 +27,9 @@
 @endif
 </p>
 -->
-<header>
+<header class="hidden-xsm hidden-sm">
 <img src="https://images.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="logo image"/>
-
-<h1>코딩교육사이트</h1>
+<h1>Jr. CHAP</h1>
 </header>
 @include("mpgnav")
 <section>
@@ -42,27 +42,37 @@
      <a href="#" class="slidesjs-next slidesjs-navigation">다음</a><!--다음버튼-->
     </div>
     <div class="fluid-layout" >
-        <div class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12">
+        <div style="padding-bottom:15px;" class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12">
             <?php if( Session::has("logininfo") ){ ?>
-            <p><img  src='{{Session::get("logininfo")["avatar"]}}'/>환영합니다 {{Session::get("logininfo")["name"]}}</p>
-            <?php var_dump(Session::get("logininfo"));  ?>
-            <a href="./logout"><button>Log out</button></a>
+            <p><img class="account-image" src='{{Session::get("logininfo")["avatar"]}}'/>
+             <a href="./logout" style="float:right"><button>Log out</button></a>
+            <p style="padding-left:5px;">{{Session::get("logininfo")["name"]}}님<div><a><button>내강의실</button></a></div></p> </p>
+           <button class="btn"></button>
             <?php } else { ?>
-            <form>
-                <input  type="text"></input><br/>
-                <input type="password"></input><br/>
-                <input type="button" value="로그인" />
+            <form class="loginform" method="post" action="./login/normal">
+            {{ csrf_field() }}
+                <label for="loginid">아이디</label>
+                <input  type="text" name="loginid" placeholder="아이디" tabindex="1" ></input>
+                <label for="loginpw">비밀번호</label>
+                <input type="password" name="loginpw" placeholder="비밀번호" tabindex="2"></input>
+                <input type="submit" value="Login" tabindex="3" />
             </form>
-            <a href="./login/github"><button>Log in</button></a>
+            <div class="divider"><hr/><p>OR</p></div>
                 <a class="btn-oauth-github" href="./login/github">Login with Github</a>
             <?php } ?>
         </div>
-        <div class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12" >
-        공지사항 부분
+        <div style="height:100%" class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12" >
+        <table class="tbl">
+        <tr><th>제목</th><th>날짜</th></tr>
+        <?php for($i=1;$i<=5;$i++){ ?>
+        <tr><td>test<?=$i?></td><td><?= date("y/n/j",time())?></td></tr>
+        <?php } ?>
+        </table>
         </div>
     </div>
 </section>
 <footer>
+하위 사이트의 간략정보를 적는 footer
 </footer>
 {{HTML::script('http://code.jquery.com/jquery-latest.min.js')}}
 {{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/slidesjs/3.0/jquery.slides.min.js')}}

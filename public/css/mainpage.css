@@ -98,6 +98,7 @@ div.header div#topmenu .menulink:hover{
 color:white;
 background-color:orange;
 -webkit-transition: all 0.4s ease;
+transition: all 0.4s ease;
 }
 
 div.header div#topmenu ul.menu {
