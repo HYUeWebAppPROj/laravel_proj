@@ -12,6 +12,8 @@
 */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+$navitem = array(array("title"=>"html","link"=>"#"),array("title"=>"css","link"=>"#"),array("title"=>"js","link"=>"#"),array("title"=>"내정보","link"=>"./studypage"),array("title"=>"live 코딩","link"=>"#"));
+$_ENV['navitem']=$navitem;
 Route::get('/', function () {
     return redirect('/mainpage2');
     
@@ -21,8 +23,8 @@ Route::get('/mainpage',function(){
     return View::make("mainpage")->with("imgpath","images/mainpage");
 });
 Route::get('/mainpage2',function(){
-    $navitem = array(array("title"=>"html","link"=>"#"),array("title"=>"css","link"=>"#"),array("title"=>"js","link"=>"#"),array("title"=>"내정보","link"=>"#"),array("title"=>"live 코딩","link"=>"#"));
-    return View::make("mainpage2")->with("imgpath","images/mainpage")->with("navitems",$navitem);
+    #$navitem = array(array("title"=>"html","link"=>"#"),array("title"=>"css","link"=>"#"),array("title"=>"js","link"=>"#"),array("title"=>"내정보","link"=>"#"),array("title"=>"live 코딩","link"=>"#"));
+    return View::make("mainpage2")->with("imgpath","images/mainpage")->with("navitems",$_ENV['navitem']);
 });
 Route::post('/login/normal',function(){
     $id = Input::get('loginid', null);
@@ -70,8 +72,10 @@ Route::get("/logout",function(){
     
 });
 Route::get('/studypage',function(){
-    return View::make("studypage")->with("imgpath","images/studypage");
+    $ver = (int)Input::input('ver', 1);
+    return $ver===1?View::make("studypage")->with("imgpath","images/studypage"):View::make("studypage2")->with("navitems",$_ENV['navitem']);
 });
 Route::get('/test', function () {
+
     return View::make("test")->with("msg","Hi!, Admin3.");
 });

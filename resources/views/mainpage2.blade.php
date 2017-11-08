@@ -63,10 +63,12 @@
         </div>
         <div style="height:100%" class="fluid-item-xlg-6 fluid-item-lg-6 fluid-item-md-6 fluid-item-sm-12 fluid-item-xsm-12" >
         <table class="tbl">
-        <tr><th>제목</th><th>날짜</th></tr>
+        <thead><tr><th>제목</th><th style="width:20%;">날짜</th><th width="50px"><a href="./notice">더보기</a></th></tr><thead>
+        <tbody>
         <?php for($i=1;$i<=5;$i++){ ?>
-        <tr><td>test<?=$i?></td><td><?= date("y/n/j",time())?></td></tr>
+        <tr><td>test<?=$i?></td><td colspan=2><?= date("y/n/j",time())?></td></tr>
         <?php } ?>
+        </tbody>
         </table>
         </div>
     </div>
@@ -74,8 +76,12 @@
 <footer>
 하위 사이트의 간략정보를 적는 footer
 </footer>
-{{HTML::script('http://code.jquery.com/jquery-latest.min.js')}}
-{{HTML::script('https://cdnjs.cloudflare.com/ajax/libs/slidesjs/3.0/jquery.slides.min.js')}}
+{{--HTML::script('http://code.jquery.com/jquery-latest.min.js')--}}
+
+{{--HTML::script('https://cdnjs.cloudflare.com/ajax/libs/slidesjs/3.0/jquery.slides.min.js')--}}
+{{HTML::script('js/jquery-3.2.1.min.js')}}
+{{HTML::script('js/jquery.slides.min.js')}}
+
 <script>
  $(function(){
       $("#slides").slidesjs({

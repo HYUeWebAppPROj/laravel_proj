@@ -1,164 +1,29 @@
-body{
-    font-size:12px;
-    font-family:굴림, gulim;
-    }
-    
-    ul {
-        list-style:none;
-    }
-    
-    li {
-        display:inline;
-    }
-    
-    div.header {
-        min-width: 1200px;
-        height: 160px;
-    }
-    
-    div.wrap {
-        width: 1200px;
-        margin: 0 auto;
-        position: relative;
-    }
-    
-    div.header h1 {
-        position: absolute;
-        left: 50%;
-        width: 212px;
-        height: 40px;
-        margin-left: -106px;
-        top: 35px;
-        text-decoration:none; 
-        Color:#000000;
-    }
-    
-    div.header div.top{
-    height:110px;
-    }
-    
-    div.header ul.lt{
-    padding-top:15px;
-    padding-left:20px;
-    float:left;
-    }
-    
-    div.header div.top ul.lt .ltlink{
-    text-decoration:none;
-    font-weight:bold;
-    padding: 0px 10px 0px 10px;
-    color:black; 
-    }
-    
-    div.header ul.rt{
-    padding-top:15px;
-    padding-right:20px;
-    float:right;
-    }
-    
-    div.header div.top ul.rt .rtlink{
-    text-decoration:none;
-    font-weight:bold;
-    border-left: none;
-    padding: 0px 10px 0px 10px; 
-    color:black;
-    }
-    
-    div.header div.top ul.rt .rtlink1{
-    text-decoration:none;
-    font-weight:bold;
-    border-left: 2px solid #000000;
-    padding: 0px 10px 0px 10px; 
-    color:black;
-    }
-    
-    div.header div#topmenu{
-    height:40px;
-    width:1200px;
-    z-index: 10;
-    }
-    
-    div.header div#topmenu ul.menu li{
-    color:white;
-    background-color:#FF5E00;
-    vertical-align:middle;
-    line-height:50px;
+#sidebar {
+    float: left;
+    position: relative;
+    margin-top: 10px;
+    width: 18%;
+    height: 500px;
+    background: #eee;
+    border-radius: 4px;
+}
+#article {
+    float: right;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    width: 81%;
+    min-height: 3000px;
+    background: #eee;
+    border-radius: 4px;
+}
+#sidebar .contable {
+    background-color: #FF5E00;
+    color: white;
     text-align:center;
-    float:left;
-    }
-    
-    div.header div#topmenu .menulink{
-    text-decoration:none;
-    display:block;
-    width:200px;
-    font-weight:bold;
-    }
-    
-    div.header div#topmenu .menulink:hover{
-    color:white;
-    background-color:orange;
-    }
-    
-    div.header div#topmenu ul.menu {
-        margin:0; padding:0;
-    } 
-    
-    /*슬라이드 부분 css*/
-    #head {
-        width: 800px;
-        height: 3000px;
-        background: #eee;
-        overflow: hidden;
-    }
-    
-    div.slideContentContainer {
-        position: absolute;
-        overflow: hidden;
-        width: 670px;
-        height: 100px;
-    }
-    div.slideContentContainer div.slideContentMover {
-        position: absolute;
-    }
-    div.slideContentContainer div.slideContent {
-        position: absolute;
-        width: 685px;
-        overflow: hidden;
-    }
-    div.slideContentContainer div.slideContent ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        width: 685px;
-        height: 71px;
-    }
-    div.slideContentContainer div.slideContent ul li {
-        float: left;
-        padding: 0 5px;
-    }
-    div.slideContentContainer div.slideContent li a img {
-        width: 124px;
-        /*
-        height: 71px;
-        */
-    }
-    div.gallery-container *.on {
-        cursor: pointer;
-    }
-    div.gallery-container *.off {
-        cursor: default;
-    }
-    div.slideBtnSet img.prevbtn {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        left: 10px;
-        top: 300px;
-    }
-    div.slideBtnSet img.nextbtn {
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        left: 505px;
-        top: 300px;
-    }
+    line-height:45px;
+    height: 45px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 4px 4px 0 0;
+}
