@@ -75,7 +75,11 @@ Route::get('/studypage',function(){
     $ver = (int)Input::input('ver', 1);
     return $ver===1?View::make("studypage")->with("imgpath","images/studypage"):View::make("studypage2")->with("navitems",$_ENV['navitem']);
 });
+Route::get('/marketpage', function () {
+    return View::make("marketpage")->with("navitems",$_ENV['navitem']);
+    //return View::make("test")->with("msg","Hi!, Admin3.");
+});
 Route::get('/test', function () {
-
-    return View::make("test")->with("msg","Hi!, Admin3.");
+    return View::make("sampleresponsive")->with("navitems",$_ENV['navitem']);
+    //return View::make("test")->with("msg","Hi!, Admin3.");
 });

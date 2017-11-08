@@ -3,6 +3,7 @@
 {{HTML::style('css/mainpage.css')}}
 {{HTML::style('css/studypage.css')}}
 {{HTML::style('css/slider.css')}}
+
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	
 	<script type="text/javascript">
