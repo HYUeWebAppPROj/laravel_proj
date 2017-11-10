@@ -3,7 +3,8 @@
     margin-right: 3px;
 }
 .fluid-layout > *{
-   float:left;
+   /*float:left;*/
+   display:inline-block;
 }
 .fluid-item-1{
     width: 8.3%;

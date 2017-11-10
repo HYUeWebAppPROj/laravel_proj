@@ -9,6 +9,16 @@
     flex-direction: row-reverse;
 }
 @media screen and (max-width:543px){
+    .flex-layout-xsm {
+        display: -webkit-flex;
+        display:inline-flex;
+    }
+    .flex-layout-xsm-horizontal{
+        flex-direction: row;
+    }
+    .flex-layout-xsm-horizontal-reverse{
+        flex-direction: row-reverse;
+    }
     .flex-item-xsm-lv1{
         -webkit-flex: 1; /* Safari 6.1+ */
         -ms-flex: 1; /* IE 10 */ 
@@ -77,6 +87,16 @@
     
 }
 @media screen and (min-width:554px) and (max-width:767px){
+    .flex-layout-sm {
+        display: -webkit-flex;
+        display:inline-flex;
+    }
+    .flex-layout-sm-horizontal{
+        flex-direction: row;
+    }
+    .flex-layout-sm-horizontal-reverse{
+        flex-direction: row-reverse;
+    }
     .flex-item-sm-lv1{
         -webkit-flex: 1; /* Safari 6.1+ */
         -ms-flex: 1; /* IE 10 */ 
@@ -144,6 +164,16 @@
     }
 }
 @media screen and (min-width: 768px) and (max-width:991px){
+    .flex-layout-md {
+        display: -webkit-flex;
+        display:inline-flex;
+    }
+    .flex-layout-md-horizontal{
+        flex-direction: row;
+    }
+    .flex-layout-md-horizontal-reverse{
+        flex-direction: row-reverse;
+    }
     .flex-item-md-lv1{
         -webkit-flex: 1; /* Safari 6.1+ */
         -ms-flex: 1; /* IE 10 */ 
@@ -153,6 +183,7 @@
         -webkit-flex: 2; /* Safari 6.1+ */
         -ms-flex: 2; /* IE 10 */ 
         flex: 2;
+        
     }
     .flex-item-md-lv3{
         -webkit-flex: 3; /* Safari 6.1+ */
@@ -211,6 +242,16 @@
     }
 }
 @media screen and (min-width: 992px) and (max-width:1199px){
+    .flex-layout-lg {
+        display: -webkit-flex;
+        display:inline-flex;
+    }
+    .flex-layout-lg-horizontal{
+        flex-direction: row;
+    }
+    .flex-layout-lg-horizontal-reverse{
+        flex-direction: row-reverse;
+    }
     .flex-item-lg-lv1{
         -webkit-flex: 1; /* Safari 6.1+ */
         -ms-flex: 1; /* IE 10 */ 
@@ -278,6 +319,16 @@
     }
 }
 @media screen and (min-width: 1200px){
+    .flex-layout-xlg {
+        display: -webkit-flex;
+        display:inline-flex;
+    }
+    .flex-layout-xlg-horizontal{
+        flex-direction: row;
+    }
+    .flex-layout-xlg-horizontal-reverse{
+        flex-direction: row-reverse;
+    }
     .flex-item-xlg-lv1{
         -webkit-flex: 1; /* Safari 6.1+ */
         -ms-flex: 1; /* IE 10 */ 

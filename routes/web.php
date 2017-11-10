@@ -83,3 +83,7 @@ Route::get('/test', function () {
     return View::make("sampleresponsive")->with("navitems",$_ENV['navitem']);
     //return View::make("test")->with("msg","Hi!, Admin3.");
 });
+Route::get('/codepage', function () {
+    return View::make("codepage")->with("navitems",$_ENV['navitem']);
+    //return View::make("test")->with("msg","Hi!, Admin3.");
+});

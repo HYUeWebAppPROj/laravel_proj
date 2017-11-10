@@ -14,11 +14,13 @@
 </div>
 <?php foreach( $navitems as $a){ ?>
 <li>
-    <a href="<?= $a['link']?>" style="width:<?= (int)(99.9/count($navitems)) ?>vw;"><div><p><?= $a["title"] ?></p></div></a>
+    <a href="<?= $a['link']?>"><div><p><?= $a["title"] ?></p></div></a>
 </li>
 <?php } ?>
 </ul>
-<!--<?php foreach( $navitems as $a){ ?>
+<!--
+style="width:<?= (int)(99.9/count($navitems)) ?>vw;"
+<?php foreach( $navitems as $a){ ?>
 
         <a href="<?= $a['link']?>" class="flex-item-lv1" style="height:100%"><div><p><?= $a["title"] ?></p></div></a>
 <?php } ?>
