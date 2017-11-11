@@ -10,9 +10,27 @@
     {{HTML::style('css/flex_layout.css')}}
 {{HTML::style('css/fluid_layout.css')}}
 </head>
-<body ng-app="codingApp">
+<body ng-app="codingApp" ng-controller="MainCtrl">
+    <input type="checkbox" id="dialogshow" hidden></input>
+    <div class="dialogwindow" >
+        <section >
+            <header class="flex-layout">
+                <div class="flex-item-lv1" ><p>제출결과</p></div>
+                <p class="dialog-button-close">
+                <label for="dialogshow">X</label>
+                </p>
+            </header>
+            <article class="dialog-content-area flex-layout-md flex-layout-md-horizontal flex-layout-lg flex-layout-lg-horizontal flex-layout-xlg flex-layout-xlg-horizontal">
+                 <div class="demo flex-item-md-lv1 flex-item-lg-lv1  flex-item-xlg-lv1 "></div>
+                <div class="demo flex-item-md-lv1 flex-item-lg-lv1 flex-item-xlg-lv1"></div>
+            </article>
+            <footer>
+            <button class="demo2">다음</button>
+            </footer>
+        </section>
+    </div>
     <nav>
-        <input type="checkbox" id="mbtn" ></input>
+        <input type="checkbox" id="mbtn" hidden></input>
         <div class="hidden-md hidden-lg hidden-xlg ">
         <div class="flex-layout flex-layout-horizontal ">
             <p class="flex-item-lv1 mobile-menu-btn" ><label for="mbtn">≡</label></p>
@@ -43,14 +61,22 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
         </ul>
     </nav>
     <section class="contentarea flex-layout-md flex-layout-md-horizontal flex-layout-lg flex-layout-lg-horizontal flex-layout-xlg flex-layout-xlg-horizontal">
-     <div class="demo flex-item-md-lv3 flex-item-lg-lv2  flex-item-xlg-lv2 "></div>
-     <div class="demo flex-item-md-lv9 flex-item-lg-lv10 flex-item-xlg-lv10"></div>
+     <div class="demo flex-item-md-lv3 flex-item-lg-lv3  flex-item-xlg-lv2 ">demo</div>
+     <div class="demo flex-item-md-lv9 flex-item-lg-lv9 flex-item-xlg-lv10">
+     <pre id="editor" style="height:100%;">function foo(items) {
+    var i;
+    for (i = 0; i &lt; items.length; i++) {
+        alert("Ace Rocks " + items[i]);
+    }
+}</pre>
+     </div>
 
     </section>
     <footer>
-        <button class="demo2" >  제출</button>
+        <button class="demo2" onClick="document.getElementById('dialogshow').checked = !document.getElementById('dialogshow').checked;">제출</button>
     </footer>
     {{HTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js')}}
+    {{HTML::script('js/coding/aceeditor/src-noconflict/ace.js')}}
     <script>
     function move(contid,targetid){
         var cls = document.getElementById(targetid);
@@ -68,13 +94,20 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
        }
        //mobile.addListener(onChangedToMobileMode);
        //pc.addListener(onChangedToPcMode);
+        var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/javascript");
     </script>
     <script>
     
      var sampleApp = angular.module('codingApp', [], function($interpolateProvider) {
         $interpolateProvider.startSymbol('<%%');
         $interpolateProvider.endSymbol('%%>');
+        
     });
+    sampleApp.controller('MainCtrl',['$scope',function($scope){
+$scope.editor={demodata:"<html>\n<header><title>This is title</title></header>\n<body>\nHello world\n</body>\n</html>"};
+     }]);
     </script>
 </body>
 </html>
