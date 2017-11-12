@@ -5,6 +5,9 @@
 .flex-layout-horizontal{
     flex-direction: row;
 }
+.flex-layout-vertical{
+    flex-direction: column;
+}
 .flex-layout-horizontal-reverse{
     flex-direction: row-reverse;
 }
@@ -15,6 +18,9 @@
     }
     .flex-layout-xsm-horizontal{
         flex-direction: row;
+    }
+    .flex-layout-xsm-vertical{
+        flex-direction: column;
     }
     .flex-layout-xsm-horizontal-reverse{
         flex-direction: row-reverse;
@@ -94,6 +100,9 @@
     .flex-layout-sm-horizontal{
         flex-direction: row;
     }
+    .flex-layout-sm-vertical{
+        flex-direction: column;
+    }
     .flex-layout-sm-horizontal-reverse{
         flex-direction: row-reverse;
     }
@@ -170,6 +179,9 @@
     }
     .flex-layout-md-horizontal{
         flex-direction: row;
+    }
+    .flex-layout-md-vertical{
+        flex-direction: column;
     }
     .flex-layout-md-horizontal-reverse{
         flex-direction: row-reverse;
@@ -249,6 +261,9 @@
     .flex-layout-lg-horizontal{
         flex-direction: row;
     }
+    .flex-layout-lg-vertical{
+        flex-direction: column;
+    }
     .flex-layout-lg-horizontal-reverse{
         flex-direction: row-reverse;
     }
@@ -325,6 +340,9 @@
     }
     .flex-layout-xlg-horizontal{
         flex-direction: row;
+    }
+    .flex-layout-xlg-vertical{
+        flex-direction: column;
     }
     .flex-layout-xlg-horizontal-reverse{
         flex-direction: row-reverse;

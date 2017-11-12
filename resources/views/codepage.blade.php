@@ -5,24 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.1.0/highlightjs-line-numbers.min.js"></script>
     {{HTML::style('css/codepage.css')}}
     {{HTML::style('css/show_hidden.css')}}
     {{HTML::style('css/flex_layout.css')}}
 {{HTML::style('css/fluid_layout.css')}}
+
 </head>
 <body ng-app="codingApp" ng-controller="MainCtrl">
     <input type="checkbox" id="dialogshow" hidden></input>
     <div class="dialogwindow" >
         <section >
             <header class="flex-layout">
-                <div class="flex-item-lv1" ><p>제출결과</p></div>
+                <div class="flex-item-lv1 dialog-title-bar" ><p>제출결과</p></div>
                 <p class="dialog-button-close">
                 <label for="dialogshow">X</label>
                 </p>
             </header>
-            <article class="dialog-content-area flex-layout-md flex-layout-md-horizontal flex-layout-lg flex-layout-lg-horizontal flex-layout-xlg flex-layout-xlg-horizontal">
-                 <div class="demo flex-item-md-lv1 flex-item-lg-lv1  flex-item-xlg-lv1 "></div>
-                <div class="demo flex-item-md-lv1 flex-item-lg-lv1 flex-item-xlg-lv1"></div>
+            <article class="dialog-content-area y-scrollable flex-item-lv2 flex-layout-md flex-layout-md-horizontal flex-layout-lg flex-layout-lg-horizontal flex-layout-xlg flex-layout-xlg-horizontal">
+                
+                 <div class="demo flex-item-md-lv1 flex-item-lg-lv1  flex-item-xlg-lv1 " >
+                <pre><code class="html" ng-bind="editor.demodata"></code></pre>
+                 
+                 </div>
+                <div class="demo flex-item-md-lv1 flex-item-lg-lv1 flex-item-xlg-lv1 flex-layout-md flex-layout-md-vertical flex-layout-lg flex-layout-lg-vertical flex-layout-xlg flex-layout-xlg-vertical">
+                <iframe class="flex-item-lv1" style="width:100%" ng-src="<%% makeIframeData(editor.demodata) %%>"></iframe>
+                <div class="flex-item-lv1" style="background-color:red;">demo:
+                <%% demo.result_user %%>
+                </div>
+                </div>
+                
+                
             </article>
             <footer>
             <button class="demo2">다음</button>
@@ -50,7 +66,7 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
             <li class="hoverable hidden-xsm hidden-sm">
             <p><span>←</span> 되돌아가기   </p>
             </li>
-            <li><div><p id="csloc"><select id="courseselector" ng-init="navdata.courseSelect = '<?=$examlist[0]?>'" ng-model="navdata.courseSelect">
+            <li><div><p id="csloc"><select id="courseselector" ng-init="navdata.courseSelect = '<?=$examlist[0]?>'" ng-model="navdata.courseSelect" ng-change="modeChanged()">
             <?php 
             foreach($examlist as $item){?>
             <option value="<?=$item?>"><?=$item?></option>
@@ -61,26 +77,42 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
         </ul>
     </nav>
     <section class="contentarea flex-layout-md flex-layout-md-horizontal flex-layout-lg flex-layout-lg-horizontal flex-layout-xlg flex-layout-xlg-horizontal">
-     <div class="demo flex-item-md-lv3 flex-item-lg-lv3  flex-item-xlg-lv2 ">demo</div>
-     <div class="demo flex-item-md-lv9 flex-item-lg-lv9 flex-item-xlg-lv10">
-     <pre id="editor" style="height:100%;">function foo(items) {
-    var i;
-    for (i = 0; i &lt; items.length; i++) {
-        alert("Ace Rocks " + items[i]);
-    }
-}</pre>
+     
+     <!--
+     <div style="position:absolute;left:10%;z-index:50;"> <%% makeIframeData(editor.demodata) %%>
+     </div>
+     -->
+     <div class="demo flex-item-md-lv3 flex-item-lg-lv3  flex-item-xlg-lv3 ">demo</div>
+     <div class="demo flex-item-md-lv9 flex-item-lg-lv9 flex-item-xlg-lv9" >
+     <div class="coding-toolbar">
+     <ul>
+        <li><div><p>저장</p></div></li>
+        <li><div><p>되돌리기</p></div></li>
+        <li><div><p>코드 초기화</p></div></li>
+
+     </ul>
+     </div>
+     <div class="coding-block" ui-ace="{mode:'<%% coding.lang %%>'}" ng-model="editor.demodata"></div>
+     <!--<pre id="editor" style="height:100%;" >  </pre> -->
      </div>
 
     </section>
     <footer>
+    <%% coding.lang %%>
         <button class="demo2" onClick="document.getElementById('dialogshow').checked = !document.getElementById('dialogshow').checked;">제출</button>
     </footer>
     {{HTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js')}}
-    {{HTML::script('js/coding/aceeditor/src-noconflict/ace.js')}}
+
+    {{-- HTML::script('js/coding/aceeditor/src-noconflict/ace.js') --}}
+    {{HTML::script('js/bower_components/ace-builds/src-min-noconflict/ace.js')}}
+    {{HTML::script('js/bower_components/angular-ui-ace/ui-ace.js')}}
+    <!--
+    <script src="https://pc035860.github.io/angular-highlightjs/angular-highlightjs.min.js"></script>
+    -->
     <script>
-    function move(contid,targetid){
-        var cls = document.getElementById(targetid);
-        cls.parentElement.removeChild(cls);
+        function move(contid,targetid){
+            var cls = document.getElementById(targetid);
+            cls.parentElement.removeChild(cls);
             document.getElementById(contid).appendChild(cls);
             console.log("working");
         }
@@ -94,19 +126,51 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
        }
        //mobile.addListener(onChangedToMobileMode);
        //pc.addListener(onChangedToPcMode);
-        var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/twilight");
-    editor.session.setMode("ace/mode/javascript");
+       /* var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/twilight");
+        editor.session.setMode("ace/mode/javascript");
+        */
+        hljs.initHighlightingOnLoad();
+        //hljs.configure({useBR: true});
+        hljs.initLineNumbersOnLoad();
+  //SyntaxHighlighter.all();
     </script>
     <script>
     
-     var sampleApp = angular.module('codingApp', [], function($interpolateProvider) {
+     var sampleApp = angular.module('codingApp', ['ui.ace'/*,'hljs'*/], function($interpolateProvider) {
         $interpolateProvider.startSymbol('<%%');
         $interpolateProvider.endSymbol('%%>');
-        
     });
-    sampleApp.controller('MainCtrl',['$scope',function($scope){
-$scope.editor={demodata:"<html>\n<header><title>This is title</title></header>\n<body>\nHello world\n</body>\n</html>"};
+    sampleApp.controller('MainCtrl',['$scope','$sce',function($scope,$sce){
+    $scope.editor={demodata:"<html>\n<head><title>This is title</title></head>\n<body>\nHello world\n</body>\n</html>"
+    };
+    $scope.coding={lang:"html"};
+    $scope.demo = {result_user:"result of user data"};
+    $scope.rawtxt2tHtml = function(data){
+        return $sce.trustAsHtml(data);
+    }
+    $scope.rawlink2tURL = function(url){
+        return $sce.trustAsResourceUrl(url);
+    }
+    $scope.makeIframeData=function(data){
+        return  $scope.rawlink2tURL("data: text/html, "+$sce.trustAsHtml(data));
+    }
+    $scope.modeChanged = function(){
+        var dt = $scope.navdata.courseSelect;
+        if(dt=="HTML"){
+            $scope.coding.lang = "html";
+        }
+        <?php 
+        $output = array_map(function ($str) {
+    return preg_replace('/[a-z]+/', '', $str);
+        }, $examlist);
+        for($i=1;$i<count($output);$i++){
+             ?>
+            else if(dt=="<?=$examlist[$i]?>"){
+                $scope.coding.lang = "<?=strtolower($output[$i])?>";
+            }
+        <?php } ?>
+    }
      }]);
     </script>
 </body>

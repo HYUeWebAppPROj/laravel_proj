@@ -15,6 +15,9 @@ body > nav{
 footer{
     background-color: gray;
 }
+.y-scrollable{
+    overflow-y: scroll;
+}
 body > footer{
     height:2.5em;
     width:100%;
@@ -119,6 +122,7 @@ section.contentarea{
     width:100%;
     padding-top:calc(3.5em + 2px);
     height: calc(100vh - 3.5em - 2.5em - 2px);
+    overflow-y: scroll;
 }
 
 nav > ul > li  p:first-child{
@@ -154,6 +158,12 @@ nav > ul > li  p:first-child{
     padding:0px;
     font-size: x-large;
 }
+.dialog-title-bar{
+    color:white;
+    text-shadow: 0.5px 0.5px gray;
+    padding-left: 1em;
+    font-size: large;
+}
 .dialog-button-close label{
 
 }
@@ -175,7 +185,7 @@ nav > ul > li  p:first-child{
 .dialog-content-area{
     height:calc(90vh - 2em - 3em);
     padding:5px;
-    overflow-y: scroll;
+    
     width:calc( 100% - 10px);
 }
 #dialogshow + .dialogwindow{
@@ -186,6 +196,45 @@ nav > ul > li  p:first-child{
     visibility: visible;
     display: initial;
 }
+iframe{
+    background-color: white;
+    overflow:scroll;
+}
+.coding-block,.ace_editor{
+    height:calc(100% - 2em);
+    width:100%;
+    overflow-y: scroll;
+    margin:0px;
+    padding:0px;
+}
+.coding-toolbar{
+    background-color:#00796B;
+    width:100%;
+    padding:0px;
+    margin:0px;
+    height:2em;
+}
+.coding-toolbar > ul{
+    display:block;
+    padding:0px;
+    margin:0px;
+    list-style: none;
+    height:100%;
+}
+.coding-toolbar > ul > li{
+    display:inline-block;
+    color:white;
+    text-align: center;
+    margin:auto;
+    padding-left: 2%;
+    padding-right: 2%;
+
+}
+.coding-toolbar > ul > li:hover{
+    background-color:#80CBC4;
+    transition: all 0.5s ease-in;
+}
+
 @media screen and (max-width:767px){
     nav > ul.menu > li p{
         margin:0px;
@@ -335,15 +384,21 @@ nav > ul > li  p:first-child{
     bottom: -11px;
     left: 5px;
 }
-
+pre{
+    margin:0px;
+    height:100%;
+}
+pre > code{
+    height:100%;
+}
 .demo{
     margin:1em;
     background-color:#388E3C;
     border: 0.2em solid #D84315;
     border-radius: 0.3em;
-    height: calc(100vh - 8.5em - 2px);
-    
-   
+    height: calc(100% - 2em);
+    padding:0px;
+   overflow-y:scroll;
 }
 /*.demo::before{
     content:"demo text";
@@ -370,4 +425,25 @@ footer button.demo2:hover{
     background-color: #FBC02D;
     color:black;
 
+}
+td.hljs-ln-numbers {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	text-align: center;
+	color: gray;
+	border-right: 2px solid green;
+	vertical-align: top;
+	padding-right: 5px;
+
+	/* your custom style here */
+}
+
+/* for block of code */
+td.hljs-ln-code {
+	padding-left: 10px;
 }
