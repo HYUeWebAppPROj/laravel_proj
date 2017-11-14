@@ -5,7 +5,10 @@
 </head>
 <body>
 <section>
-    <h1><?= $msg?></h1>
+    <form method="POST" action="./codepage/api">
+    {{ csrf_field() }}
+        <input type="submit">
+    </form>
 </section>
 </body>
 </html>

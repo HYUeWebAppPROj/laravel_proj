@@ -80,10 +80,27 @@ Route::get('/marketpage', function () {
     //return View::make("test")->with("msg","Hi!, Admin3.");
 });
 Route::get('/test', function () {
-    return View::make("sampleresponsive")->with("navitems",$_ENV['navitem']);
-    //return View::make("test")->with("msg","Hi!, Admin3.");
+
+    //return View::make("sampleresponsive")->with("navitems",$_ENV['navitem']);
+    
+    return View::make("test")->with("msg","Hi!, Admin3.");
 });
 Route::get('/codepage', function () {
     return View::make("codepage")->with("navitems",$_ENV['navitem']);
     //return View::make("test")->with("msg","Hi!, Admin3.");
 });
+Route::post('/codepage/api/{api_mode}',function(Request $req,$api_mode){
+    $ipt = $req->json()->all();
+    $rst = array();
+    if(isset($ipt['id_provider'])&&isset($ipt['id'])&&isset($ipt['data'])){
+        $id = $ipt['id'];
+        $data = $ipt['data'];
+        $id_provider = $ipt['id_provider'];
+        $qry = DB::table('loginserviceprovider')->where('provider',$id_provider)->select('provider')->get();
+        
+        if(preg_match("/^(github|test)$/",$qry[0]->provider)){$rst["success"] = true;}
+        
+    }
+
+    return Response::json($rst);
+})->where(['api_mode' => '^(html|js|php|css)$']);

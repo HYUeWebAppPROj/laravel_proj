@@ -55,7 +55,11 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
-
+    protected $middleware=[
+        // ....
+        'csrf'  => 'Illuminate\Foundation\Http\Middleware\VerifyCsrfToken',
+      ];
+      
     /**
      * Define the "api" routes for the application.
      *

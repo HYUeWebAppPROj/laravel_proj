@@ -51,10 +51,10 @@
         <div class="flex-layout flex-layout-horizontal ">
             <p class="flex-item-lv1 mobile-menu-btn" ><label for="mbtn">≡</label></p>
             <div class="flex-item-lv12 nav-logo ">
-            <img src="https://images.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="logo image"/>
-            <div class="inlineblk" id="mobilecs"></div>
-            <!--<h1>Jr. CHAP</h1> -->
-            <p class="inlineblk">Title-<%% navdata.courseSelect %%> Introduction and Basic Grammar</p>
+                <img src="https://images.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" alt="logo image"/>
+                <div class="inlineblk" id="mobilecs"></div>
+                <!--<h1>Jr. CHAP</h1> -->
+                <p class="inlineblk">Title-<%% navdata.courseSelect %%> Introduction and Basic Grammar</p>
             </div>
         </div>
         </div>
@@ -82,14 +82,18 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
      <div style="position:absolute;left:10%;z-index:50;"> <%% makeIframeData(editor.demodata) %%>
      </div>
      -->
-     <div class="demo flex-item-md-lv3 flex-item-lg-lv3  flex-item-xlg-lv3 ">demo</div>
+     <div class="demo flex-item-md-lv3 flex-item-lg-lv3  flex-item-xlg-lv3 ">
+     <div class="coding-toolbar">
+     </div>
+     <div class="coding-block">
+     demo</div>
+     </div>
      <div class="demo flex-item-md-lv9 flex-item-lg-lv9 flex-item-xlg-lv9" >
      <div class="coding-toolbar">
      <ul>
         <li><div><p>저장</p></div></li>
         <li><div><p>되돌리기</p></div></li>
         <li><div><p>코드 초기화</p></div></li>
-
      </ul>
      </div>
      <div class="coding-block" ui-ace="{mode:'<%% coding.lang %%>'}" ng-model="editor.demodata"></div>
@@ -98,11 +102,9 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
 
     </section>
     <footer>
-    <%% coding.lang %%>
         <button class="demo2" onClick="document.getElementById('dialogshow').checked = !document.getElementById('dialogshow').checked;">제출</button>
     </footer>
     {{HTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js')}}
-
     {{-- HTML::script('js/coding/aceeditor/src-noconflict/ace.js') --}}
     {{HTML::script('js/bower_components/ace-builds/src-min-noconflict/ace.js')}}
     {{HTML::script('js/bower_components/angular-ui-ace/ui-ace.js')}}
@@ -116,14 +118,14 @@ $examlist = array("HTML","JavaScript","CSS","PHP");
             document.getElementById(contid).appendChild(cls);
             console.log("working");
         }
-       var mobile=  window.matchMedia("screen and (max-width:767px)");
-       var pc = window.matchMedia("screen and (min-width:768px)");
-       function onChangedToMobileMode(mediaQuery){
-           move("mobilecs","courseselector")
-       }
-       function onChangedToPcMode(mediaQuery){
-           move("csloc","courseselector");
-       }
+        var mobile=  window.matchMedia("screen and (max-width:767px)");
+        var pc = window.matchMedia("screen and (min-width:768px)");
+        function onChangedToMobileMode(mediaQuery){
+            move("mobilecs","courseselector")
+        }
+        function onChangedToPcMode(mediaQuery){
+            move("csloc","courseselector");
+        }
        //mobile.addListener(onChangedToMobileMode);
        //pc.addListener(onChangedToPcMode);
        /* var editor = ace.edit("editor");
