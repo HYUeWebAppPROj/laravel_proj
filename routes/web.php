@@ -12,6 +12,7 @@
 */
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Sunra\PhpSimple\HtmlDomParser;
 $navitem = array(array("title"=>"html","link"=>"#"),array("title"=>"css","link"=>"#"),array("title"=>"js","link"=>"#"),array("title"=>"내정보","link"=>"./studypage"),array("title"=>"live 코딩","link"=>"#"));
 $_ENV['navitem']=$navitem;
 Route::get('/', function () {
@@ -98,8 +99,14 @@ Route::post('/codepage/api/{api_mode}',function(Request $req,$api_mode){
         $id_provider = $ipt['id_provider'];
         $qry = DB::table('loginserviceprovider')->where('provider',$id_provider)->select('provider')->get();
         
-        if(preg_match("/^(github|test)$/",$qry[0]->provider)){$rst["success"] = true;}
-        
+        if(preg_match("/^(github|test)$/",$qry[0]->provider)){
+            
+            $dom = HtmlDomParser::str_get_html( $data );
+            $rst["success_msg"]=  print_r($dom->find('h1')[0],TRUE);
+            $rst["success"] = true;
+
+        }
+
     }
 
     return Response::json($rst);
