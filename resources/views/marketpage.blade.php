@@ -64,7 +64,7 @@
 			if(target == topmenu){
 				top = top - interval /50;
 				obj.style.top = top + 'px';
-				
+
 				if(pos > getTop()){
 					window.setTimeout(function () {
 					move();
@@ -101,10 +101,10 @@
 		});
 	}
 
-	function submitWin(form){ 
-		window.open('',form.target,'width=800,height=700,scrollbars=yes'); 
-		return true; 
-	} 
+	function submitWin(form){
+		window.open('',form.target,'width=800,height=700,scrollbars=yes');
+		return true;
+	}
 </script>
 
 <script>
@@ -149,12 +149,12 @@
 		}
 		fclose($fp);
 	} ?>
-	<?php 
+	<?php
 	$purfile = file('purarray.txt');
 	$pursize = count($purfile);
 	?>
 	@include('mpgnav')
-	<form method="post" action="purchasepage.php" target="sendWin" onsubmit="return submitWin(this)">
+	<form method="POST" action="./marketpage/purchasepage" target="sendWin" onsubmit="return submitWin(this)">
 		<!--<div id="tim">
 			<div class="header">
 				<div class="wrap">
@@ -190,7 +190,7 @@
 				<div>
 					<ul>
 						<li>
-							코인 수 : <a href="#">0</a> 개
+							코인 수 : <a href="#">500</a> 개
 						</li>
 						<li>
 							구매한 강좌 수 : <a href="#"><?= $pursize ?></a> 개
@@ -206,7 +206,7 @@
 					</div>
 					<div class="shopcont">
 						<ul>
-							<?php 
+							<?php
 							$phs = file("market_php.txt"); //sql미사용 쉽게 txt로 구현 (market_html.txt 파일은 html강의 전체 목록)
 							$torfphp = false;
 							$fps = file("purarray.txt"); //sql미사용 쉽게 txt로 구현 (purarray.txt 파일은 내가 구매한 강의목록)
@@ -234,7 +234,7 @@
 					</div>
 					<div class="shopcont">
 						<ul>
-							<?php 
+							<?php
 							$jss = file("market_js.txt"); //sql미사용 쉽게 txt로 구현 (market_html.txt 파일은 html강의 전체 목록)
 							$torfjs = false;
 							$fps = file("purarray.txt"); //sql미사용 쉽게 txt로 구현 (purarray.txt 파일은 내가 구매한 강의목록)
@@ -262,7 +262,7 @@
 					</div>
 					<div class="shopcont">
 						<ul>
-							<?php 
+							<?php
 							$htmls = file("market_html.txt"); //sql미사용 쉽게 txt로 구현 (market_html.txt 파일은 html강의 전체 목록)
 							$torfhtml = false;
 							$fps = file("purarray.txt"); //sql미사용 쉽게 txt로 구현 (purarray.txt 파일은 내가 구매한 강의목록)
@@ -281,7 +281,7 @@
 						<?php   }
 								$torfhtml = false; ?>
 					<?php   } ?>
-					
+
 						</ul>
 					</div>
 				</div>
@@ -291,7 +291,7 @@
 					</div>
 					<div class="shopcont">
 						<ul>
-							<?php 
+							<?php
 							$csss = file("market_css.txt"); //sql미사용 쉽게 txt로 구현 (market_html.txt 파일은 html강의 전체 목록)
 							$torfcss = false;
 							$fps = file("purarray.txt"); //sql미사용 쉽게 txt로 구현 (purarray.txt 파일은 내가 구매한 강의목록)
@@ -319,7 +319,7 @@
 	<script type="text/javascript">
 		var bool = true;      //메뉴바 활성화 비활성화 (true면 활성화)
 		if(bool == true){
-			initMoving(document.getElementById("navbar"), 100, 110, 0); 
+			initMoving(document.getElementById("navbar"), 100, 110, 0);
 		}
 
 		window.name = "mom";
