@@ -62,12 +62,12 @@ Route::get("/login/github/callback",function(){
     $li["email"] = $user->getEmail();
     $li["avatar"] = $user->getAvatar();
     $li["loginprovider"] = "github";
-    try{
-    DB::insert("insert into userlist(loginprovider,id,storage_session_id) values(?,?,concat(sha2(?,512),md5(now())));",array("github",$li["name"],"github".$li["name"]));
-    }catch(Exception $e){
-
-    }
-    DB::update("update userlist set lastest_logined_date=now() where loginprovider='github' and id=?",array($li["name"]));
+   try{
+        DB::table("userlist")->insert(["loginprovider"=>"github","id"=>$li["name"],"storage_session_id"=>DB::raw("concat(sha2('github".$li["name"]."',512),md5(now()))")]);
+    //DB::insert("insert into userlist(loginprovider,id,storage_session_id) values(?,?,concat(sha2(?,512),md5(now())));",array("github",$li["name"],"github".$li["name"]));
+    }catch(Exception $e){ }
+    DB::table("userlist")->where([["loginprovider",'=',"github"],["id",'=',$li["name"]]])->update(["lastest_logined_date"=>DB::raw("now()")]);
+    //DB::update("update userlist set lastest_logined_date=now() where loginprovider='github' and id=?",array($li["name"]));
     Session::put("logininfo",$li);
     return redirect('/mainpage2');
     //dd($user);
