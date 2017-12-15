@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
 	<link href="purchasepage.css" rel="stylesheet" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utp-8">
 
 	<script type="text/javascript">
 		function closed() {
-			opener.location.replace('marketpage.php');
+			opener.location.replace('./marketpage');
 			window.close();
 		}
 
@@ -21,9 +21,9 @@
 	error_reporting(0);
 	ini_set('display_errors', '0');
 	?>
-
-	<?php
-	if(!$_POST['mck']){ ?>
+	
+	<?php 
+	if(!$_POST['mck']){ ?> 
 		<div class="phtopbar">
 			구매페이지
 		</div>
@@ -31,7 +31,7 @@
 		<p>다시 선택해 주세요.</p>
 		<input type="button" class="cancel" value="취소" onclick="window.close()">
 	<?php }else{ ?>
-	<form method="post" action="./purchased" target="mom">
+	<form method="post" action="marketpage.php" target="mom">
 		<div class="phtopbar">
 			구매페이지
 		</div>

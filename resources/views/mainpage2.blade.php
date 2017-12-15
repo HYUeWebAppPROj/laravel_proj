@@ -119,5 +119,14 @@
       });
     });
 </script>
+<?php 
+echo $injectionJsMsg!=null? 'true':'false';
+if($injectionJsMsg!=null){
+		?>
+		<script>
+			<?php echo htmlspecialchars_decode($injectionJsMsg,ENT_QUOTES) ?>
+		</script>
+		<?php
+	} ?>
 </body>
 </html>

@@ -1,6 +1,6 @@
 .hidden{
-    display:none;
-    visibility: hidden;
+    display:none !important;
+    visibility: hidden !important;
 }
 
 .appear{
@@ -19,8 +19,8 @@
 }
 @media screen and (max-width:543px){
     .hidden-xsm{
-        display:none;
-        visibility: hidden;
+        display:none !important;
+        visibility: hidden !important;
     }
     
     .appear-xsm{
@@ -40,8 +40,8 @@
 }
 @media screen and (min-width:544px) and (max-width:767px){
     .hidden-sm{
-        display:none;
-        visibility: hidden;
+        display:none !important;
+        visibility: hidden !important;
     }
     
     .appear-sm{
@@ -61,8 +61,8 @@
 }
 @media screen and (min-width: 768px) and (max-width:991px){
     .hidden-md{
-        display:none;
-        visibility: hidden;
+        display:none !important;
+        visibility: hidden !important;
     }
     
     .appear-md{
@@ -82,8 +82,8 @@
 }
 @media screen and (min-width: 992px) and (max-width:1199px){
     .hidden-lg{
-        display:none;
-        visibility: hidden;
+        display:none !important;
+        visibility: hidden !important;
     }
     
     .appear-lg{
@@ -103,8 +103,8 @@
 }
 @media screen and (min-width: 1200px){
     .hidden-xlg{
-        display:none;
-        visibility: hidden;
+        display:none !important;
+        visibility: hidden !important;
     }
     .appear-xlg{
        display:inherit;
