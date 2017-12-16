@@ -653,7 +653,6 @@ Route::post('/codepage/api/{lang}/{api_mode}',function(Request $req,$lang,$api_m
     else{
        // $rst['log']="first if error";
     }
-    //$rst['laravel_Session'] = 
     return Response::json($rst);
 })->where(['lang' => '^(html|js|php|css)$','api_mode'=>'^(submit|save|reset|load|query_ref_with_hash)$']);
 
