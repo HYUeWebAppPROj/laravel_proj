@@ -10,7 +10,7 @@
         
         <?php echo e(HTML::style('css/marketpage2.css')); ?>
 
-        <?php echo e(HTML::style('css/nav_marketpage.css')); ?>
+        <?php echo e(HTML::style('css/nav_marketpage2.css')); ?>
 
         <?php echo e(HTML::style('css/flex_layout.css')); ?>
 
@@ -20,7 +20,7 @@
 
         
     </head>
-    <body ng-app="marketApp" ng-controller="MainCtrl">
+    <body ng-app="marketApp" ng-controller="MainCtrl" data-ng-init="initApp()">
         <header>
             <?php echo $__env->make("mpgnav_marketpage", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </header>
@@ -67,50 +67,114 @@
                     </div>
                     <div class="shopcart-controller">
                         <div class="flex-layout flex-layout-horizontal">
-                            <button class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">remove_shopping_cart</span></span>비우기
+                            <button class="flex-item-lv1" ng-disabled="shopcart.list.length<=0" ng-click="clearCart()"><span style="font-size:11pt;" class="material-icons">remove_shopping_cart</span>
+                            비우기
                             </button>
-                            <button ng-disabled="shopcart.list.length<=0" class="flex-item-lv1">구매하기
+                            <button ng-disabled="shopcart.list.length<=0" ng-click="tryToPurchase()" class="flex-item-lv1">
+                            구매하기
                             </button>
                         </div>
                     </div>
                 </footer>
             </div>
-            <div class="flex-item-md-lv3 flex-item-lg-lv3 flex-item-xlg-lv3 market-list-view" style="overflow:scroll">
-                <div class="course-container">
-                    <article ng-repeat="x in demolist" class="demo course-item">
-                        <header class="shopname">
-                            <label><%% x.title %%></label>
+            <div class="flex-item-md-lv2 flex-item-lg-lv3 flex-item-xlg-lv3 market-list-view" style="position:relative;height:100%;">
+                <div ng-init="detailpopupshow=false" ng-show="detailpopupshow" class="detail-content-popup">
+                    <article class="detail-content-container">
+                        <header>
+                            <span ng-click="detailpopupshow=!detailpopupshow" class="material-icons"  style="float:right;cursor:pointer;">close</span>
+                           상세정보
                         </header>
-                        <div class="shopcont">
-                            <ul>
-                                <li ng-repeat="y in x.content"><%% y %%></li>
+                        <section >
+                            <table>
+                                <tr>
+                                    <td width="35%">강의명</td>
+                                    <td width="65%"><%% detailviewmodel.title %%></td>
+                                </tr>
+                                <tr>
+                                    <td>상세설명</td>
+                                    <td><%% detailviewmodel.desc %%></td>
+                                </tr>
+                                <tr>
+                                    <td>비용</td>
+                                    <td><%% detailviewmodel.price %%></td>
+                                </tr>
+                                <tr>
+                                    <td>프로그래밍<br>언어</td>
+                                    <td><%% detailviewmodel.lang %%></td>
+                                </tr>
+                                <tr>
+                                    <td>강좌상태</td>
+                                    <td><%% detailviewmodel.purchased? '이미 구매함':'구매 하지 않음' %%></td>
+                                </tr>
+                                <tr>
+                                    <td>상세설명</td>
+                                    <td style="overflow-y:scroll;">
+                                        <ul>
+                                            <li ng-repeat="x in detailviewmodel.chapters"><%% x.title %%></li>
+                                        </ul>
+                                    </td>
+                                </tr>
                                 
-                            </ul>
-                        </div>
+                            </table>
+                        </section>
                         <footer>
-                            <div class="flex-layout flex-layout-horizontal">
-                            <button class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">description</span>
-                            자세히보기
-                            </button>
-                            <button ng-disabled="shopcart.list.length<=0" class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">add_shopping_cart</span>
-                            장바구니에 담기
-                            </button>
-                        </div>
+
                         </footer>
                     </article>
-                   
+                </div>
+                <div class="course-content-view-wrapper">
+                    <div class="course-content-view-toolbar">
+                        <div class="course-content-view-toolbar-left-pad">
+                            <div></div>
+                        </div>
+                        <div class="course-content-view-toolbar-container">
+                            <button ng-click="refreshCourseList()" class="course-content-view-toolbar-button"><span class="material-icons">refresh</span>새로고침</button>
+                        </div>
+                        <div class="course-content-view-toolbar-right-pad">
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="course-content-view">
+                        <div class="course-container">
+                            <article ng-repeat="x in courselist" class=" course-item">
+                                <header class="shopname">
+                                    <label><%% x.title %%></label>
+                                </header>
+                                <div class="shopcont">
+                                    <ul>
+                                        <li ng-repeat="y in x.chapters"><%% y.title %%></li>
+                                    </ul>
+                                </div>
+                                <footer>
+                                    <div class="flex-layout flex-layout-horizontal">
+                                    <button ng-click="viewDetailCourseContent(x)" class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">description</span>
+                                    자세히보기
+                                    </button>
+                                    <button ng-disabled="isExistInCart(x)" ng-click="addToCart(x)" class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">add_shopping_cart</span>
+                                    장바구니에 담기
+                                    </button>
+                                </div>
+                                </footer>
+                            </article>
+                        
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
         <footer>
-        test
+            <div style="position:relative;width:100%;height:inherit">
+            <button class="full-width-button-with-padding hidden-md hidden-lg hidden-xlg">장바구니 보기</button>
+            </div>
         </footer>
         <?php echo e(HTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js')); ?>        
         <?php echo e(HTML::script('js/jquery-3.2.1.min.js')); ?>
 
         <?php echo e(HTML::script('js/responsiveslides.min.js')); ?>
 
-        
+        <script>
+
+        </script>
         <script >
             var pureScope = this;
             var sampleApp = angular.module('marketApp', [], function($interpolateProvider) {
@@ -118,21 +182,81 @@
                 $interpolateProvider.endSymbol('%%>');
             });
             sampleApp.controller('MainCtrl',['$scope','$sce','$http',function($scope,$sce,$http){
-                $scope.ajaxRequest = function(all_param,cmd,successFunc,errorFunc){
+                $scope.ajaxRequest = function(all_param,successFunc,errorFunc){
                     $http(all_param).then(successFunc,errorFunc);
                 };
-                $scope.loadAllMarketList = function(){
-
-                };
+                
+                
                 $scope.userdata = {coin:0};
-                $scope.demodata = {title:"test title",chash:"1234567890",price:30};
-                $scope.shopcart = {list:[$scope.demodata ,{title:"test123 lang",chash:"abcdef",price:77}],listcount:function(){return list.length;},pricesum:function(){
+                 $scope.courselist = [];
+                 $scope.detailviewmodel={};
+                $scope.shopcart = {list:[{title:"test123 lang",chash:"abcdef",price:77}],listcount:function(){return list.length;},pricesum:function(){
                     var rst = 0;
                     for(var i =0;i<list.length;i++){
                         rst += list[i].price;
                     }
                     return rst;
                 }};
+                $scope.loadUserData =  function(){
+                     var requestConfig = {method:"GET",
+        url:"./user/api/coin"};
+                        $scope.ajaxRequest(requestConfig,function(resp){
+                            var data = resp.data;
+                            if(data.loaded){
+                                $scope.userdata.coin = data.coin;
+                                console.log("user data load ok");
+                            }
+                            else{
+                                $scope.userdata.coin = 0;
+                                console.log("user data load fail");
+                            }
+                        },function(error){
+                            $scope.userdata.coin = 0;
+                            console.log("user data load error");
+                        });
+                };
+                $scope.loadAllMarketList = function(){
+                    var requestConfig = {method:"GET",
+        url:"./marketpage/api/alllist"};
+                        $scope.ajaxRequest(requestConfig,function(resp){
+                            var data = resp.data;
+                            if(data.loaded){
+                                data = data.data;
+                                console.log(data);
+                                var tmplst = [];
+                                for(var i =0;i<data.length;i++){
+                                    var tmp = {title:"unknown",desc:"",user_purchased:false,lang:"",chash:"unknown",rate:0,price:0,chapters:[]};
+                                    var dt = data[i];
+                                    tmp.title=dt.course_name;
+                                    tmp.desc = dt.course_description;
+                                    tmp.price = dt.cost;
+                                    tmp.chash = dt.course_purchase_key;
+                                    tmp.rate = dt.course_rate;
+                                    tmp.user_purchased=dt.purchased;
+                                    tmp.lang = dt.lang;
+                                    var ches = [];
+                                    for(var j=0;j<dt.chapters.data.length;j++){
+                                        var chaps = dt.chapters.data[j];
+                                        var tmpobj = {page:0,title:"unknown"};
+                                        tmpobj.page = chaps.page;
+                                        tmpobj.title=chaps.title_or_goal;
+                                        ches.push(tmpobj);
+                                    }
+                                    tmp.chapters = ches;
+                                    tmplst.push(tmp); 
+                                }
+                                $scope.courselist = tmplst;
+                                console.log("courselst data load ok");
+                            }
+                            else{
+                                $scope.courselist = [];
+                                console.log("courselst data load fail");
+                            }
+                        },function(error){
+                            $scope.courselist = [];
+                            console.log("courselst data load error");
+                        });
+                };
                 $scope.priceSum = function(list){
                     var rst = 0;
                     for(var i =0;i<list.length;i++){
@@ -143,8 +267,95 @@
                 $scope.calcCartResult = function(list){
                     return $scope.userdata.coin - $scope.priceSum(list);
                 }
-                $scope.demolist = [{title:'a',content:["a1","a2","a3"]},{title:'b',content:["b1","b2","b3"]},
-                {title:'c',content:["c1","c2","c3"]},{title:'d',content:["d1","d2","d3"]},{title:'e',content:["e1","e2","e3","e4"]},{title:'f',content:["f1","f2"]}];
+                $scope.findItemFromArray = function(ary,compcallback){
+                    var item = null;
+                    for(var i=0;i<ary.length;i++){
+                        if(compcallback(ary[i])){
+                            item = ary[i];
+                            break;
+                        }
+                    }
+                    return item;
+                }
+                $scope.isExistInCart=function(x){
+                    var arr = $scope.shopcart.list;
+                    var chk = $scope.findItemFromArray(arr,function(ele){
+                        return ele.chash===x.chash;
+                    });
+                    
+                    return chk!=null;
+                };
+                $scope.removeFromCart = function(data){
+                    
+                };
+                $scope.clearCart = function(){
+                    $scope.shopcart.list = [];
+                }
+                $scope.addToCart = function(data){
+                    //console.log(data);
+                    var context = this;
+                    console.log(context);
+                    var arr = $scope.shopcart.list;
+                    var chk = $scope.findItemFromArray(arr,function(ele){
+                        return ele.chash===data.chash;
+                    });
+                    if(!chk){
+                    arr.push(data);
+                    }
+                };
+                $scope.tryToPurchase = function(){
+                    var clist =$scope.shopcart.list;
+                    if($scope.calcCartResult(clist)<0){
+                        //pureScope.showMessage("코인이 부족하여 상품을 구매할 수 없습니다.");
+                        $scope.initApp();
+                    }
+                    else{
+                        var param = {course_purchase_keys:[]};
+                        
+                        for(var i = 0;i<clist.length;i++){
+                            param.course_purchase_keys.push(clist[i].chash);
+                        }
+                        var requestConfig ={method:"POST",
+                            url:"./marketpage/api/purchase",
+                            data: JSON.stringify( param),
+                                headers: {
+                                    'Content-Type': 'application/json; charset=UTF-8'
+                                }
+                            };
+                        $scope.ajaxRequest(requestConfig,function(resp){
+                            var data = resp.data;
+                            console.log(data);
+                            if(data.loaded){
+                                if(data.purchased){
+                                    console.log("trypay success purchase");
+                                    $scope.initApp();
+                                }
+                                else{
+                                     console.log("trypay but fail to purchase");
+                                }
+                            }
+                            else{
+                                console.log("trypay but fail load");
+                            }
+                        },function(error){
+                            console.log("trypay but error load");
+                            console.log(error);
+                        });
+                    }
+                };
+                $scope.refreshCourseList = function(){
+                    $scope.initApp();
+                    
+                };
+                $scope.viewDetailCourseContent = function(data){
+                    $scope.detailviewmodel = data;
+                    $scope.detailpopupshow = true;
+                };
+                $scope.initApp = function(){
+                    $scope.clearCart();
+                    $scope.loadUserData();
+                    $scope.loadAllMarketList();
+                }
             }]);
         </script>
     </body>

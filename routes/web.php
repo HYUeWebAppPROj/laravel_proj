@@ -455,7 +455,150 @@ Route::post('/codepage/api/{lang}/{api_mode}',function(Request $req,$lang,$api_m
                 $success= countNode($ans_tree)<=$ca['cnt'];
                 $dom = removeScripts($dom);
                 $rst["result_data"] = $dom->saveHTML();#$dom->outerHtml
-              
+               // $rst['answer_cnt']=countNode($ans_tree);
+               /* $ans_dom = new Dom;
+                $ans_dom->load($answer_form);
+                $ans_chk = array();
+                $dom = new Dom;
+                $dom->setOptions([
+                    'strict' => true, // Set a global option to enable strict html parsing.
+                ]);
+                $dom->load(preg_replace("/(\s)+/"," ",preg_replace("/(\n)+/","",$data)));
+                $ddt = $dom->find("*");
+                $ddt2 = $ans_dom->find("*");
+                $usr_src_dom=array();
+                 //print_r($ddt,TRUE);
+                /*function trav($root){
+                    $tmp = array();
+                    $tmp['isTagNode']=false;
+                    $tmp['visited']=false;
+                    if($root==null||$root===null){
+                        return tmp;
+                    }
+                    $tmp['text']= $root->text();
+                    $tmp['attrs']= $root->getAttributes();
+                    $tmp['children'] = array();
+                    if($root instanceof PHPHtmlParser\Dom\TextNode || $root instanceof PHPHtmlParser\Dom\TextNode){
+                        return $tmp;
+                    }else{
+                        $tmp['isTagNode']=true;
+                        $children = $root->getChildren();
+                        
+                        $tmp['tag']=$root->getTag()->name();
+
+                        
+                        foreach($children as $child){
+                            array_push($tmp['children'],trav($child));
+                        }
+                    }
+                        return $tmp;
+                }*/
+               /* function trav($root){
+                    $tmp = array();
+                    $tmp['isTagNode']=false;
+                    $tmp['visited']=false;
+                    if($root==null||$root===null){
+                        return tmp;
+                    }
+                    $tmp['text']= $root->textContent;
+                    $tmp['attrs']= $root->getAttributes();
+                    $tmp['children'] = array();
+                    if($root instanceof PHPHtmlParser\Dom\TextNode || $root instanceof PHPHtmlParser\Dom\TextNode){
+                        return $tmp;
+                    }else{
+                        $tmp['isTagNode']=true;
+                        $children = $root->childNodes;
+                        $tmp['tag']=$root->nodeName;
+                        foreach($children as $child){
+                            array_push($tmp['children'],trav($child));
+                        }
+                    }
+                        return $tmp;
+                }
+                $usr_src_dom = trav($ddt);
+                $ans_src_dom = trav($ddt2);
+               function attributeCheck($ans_attrs,$attrs){
+                    $ans_original_cnt = count($ans_attrs);
+                    $attr_cnt = count($attrs);
+                    $tmp_cnt = 0;
+                    
+                    foreach($ans_attrs as $ans_key=>$ans_attr){
+                        if(isset($attrs[$ans_key])){
+
+                        if($attrs[$ans_key]===$ans_attr){
+                            $tmp_cnt++;
+                        }
+                        else if($ans_key=='class'||$ans_key=='style'){
+                            $exp = "((\s|\n)+)";
+                            $expres = "/(".$exp.")/";
+                            $tmp = implode($exp,
+                            explode(" ",preg_replace($expres," ",$ans_attr))
+                        );
+                            if(preg_match("/(".$tmp.")/",$attrs[$ans_key])){
+                                $tmp_cnt++;
+                            }
+                        }
+                        }
+                    }
+                    return $ans_original_cnt==$tmp_cnt;
+                }
+                function removeWhitespace($v){
+                    return trim(preg_replace("/(\s|\n)+/"," ",$v));
+                }
+                function chkAnswerInner($ans_node,$node){
+                    $result = false;
+                    if($ans_node!=null&&$ans_node!==null&&$node!=null&&$node!==null){
+                        if($ans_node['isTagNode']==$node['isTagNode']){
+                            if($ans_node['isTagNode']){
+                                $result |= attributeCheck($ans_node['attrs'],$node['attrs'])&&
+                                //removeWhitespace($ans_node['text'])==removeWhitespace($node['text'])&&
+                                $ans_node['tag']===$node['tag']
+                                ;
+                            }
+                            else{
+                                $result |= removeWhitespace($ans_node['text'])===removeWhitespace($node['text'])&&($ans_node['text']!=null&&$ans_node['text']!='');
+                            }
+                        }
+                        else{
+                            //$result |= (removeWhitespace($ans_node['text'])==removeWhitespace($node['text']))&&($ans_node['text']!=null&&$ans_node['text']!='');
+                        }
+                        
+                    }
+                    return $result;
+                }
+                function countNode($node){
+                    $rst = 0;
+                    if($node!=null&&$node!==null){
+                        $rst = 1;
+                        foreach($node['children'] as $child){
+                            $rst =$rst+ countNode($child);
+                        }
+                    }
+                    return $rst;
+                }
+                function chkAnswer($ans_root,$user_root){
+                    $rst=0;
+                    $tmp = countNode($ans_root);
+
+                    
+                    if($ans_root!=null&&$ans_root!==null&&$user_root!=null&&$user_root!==null){
+                        //if( $ans_root['visited']&&$user_root['visited']){return $rst;}
+                        $ansinner = chkAnswerInner($ans_root,$user_root);
+                        $rst =$rst+ $ansinner?1:0;
+                        
+                        $ans_root['visited']=true;
+                        $user_root['visited']=true;
+                        foreach($ans_root['children'] as $ans_ch){
+
+                            $t = chkAnswer($user_root,$ans_ch);
+                            $rst=$rst+$t;//chkAnswer($ans_ch,$usr_ch);
+                        }
+
+                    }
+                    return $rst;//$rst>=$tmp?1:0;
+                }
+                $tt = chkAnswer($usr_src_dom,$ans_src_dom);
+                $success =  $tt>=countNode($ans_src_dom);*/
         }//end if lang=html
             
             $earn = DB::table('course_detail_list')->where([['course_id','=',$course_id],['page','=',$course_page]])->select('page_earn as pe')->get()->first()->pe;
@@ -657,7 +800,7 @@ Route::post('/codepage/api/{lang}/{api_mode}',function(Request $req,$lang,$api_m
     return Response::json($rst);
 })->where(['lang' => '^(html|js|php|css)$','api_mode'=>'^(submit|save|reset|load|query_ref_with_hash)$']);
 
-Route::post('/marketpage/api/{api_mode}',function(Request $req,$api_mode){
+Route::any('/marketpage/api/{api_mode}',function(Request $req,$api_mode){
     
     $rst = array();
     function HashreOrder($mHash){
@@ -715,17 +858,27 @@ Route::post('/marketpage/api/{api_mode}',function(Request $req,$api_mode){
         }
         return -1;
     }
+    $rst["loaded"]=false;
     if($api_mode=="alllist"){
+        
         $dt = array();
         $rst["request_date"] = date("Y-m-d H:i:s");
         $qry = DB::table("course_list")->get();
-       
+       function unicodeToUTF8($str){
+           return $str;
+           /* return preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($match) {
+                return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UCS-2BE');
+            }, $str);
+            */
+       }
         foreach($qry as $row){
             $tmp = array();
+            $tmp["lang"]="";
             $tmp["cost"]=$row->cost;
             $tmp["course_name"]=$row->course_displayed_name;
             $chaps = array();
             $chaps_data = array();
+            $cid = $row->course_id;
             $qry2 = DB::table("course_detail_list")->where([['course_id','=',$row->course_id]])->orderBy("page");
             $chaps["count"] = $qry2->count();
             $tmp["purchased"]=false;
@@ -733,7 +886,7 @@ Route::post('/marketpage/api/{api_mode}',function(Request $req,$api_mode){
             foreach($qry2 as $row2){
                 $tmp2 = array();
                 $tmp2["page"]= $row2->page;
-                $tmp2["title_or_goal"]=$row2->page_goal;
+                $tmp2["title_or_goal"]=unicodeToUTF8($row2->page_goal);
                 $tmp2["page_price"]=$row2->page_price;
                 array_push($chaps_data ,$tmp2);
             }
@@ -748,14 +901,15 @@ Route::post('/marketpage/api/{api_mode}',function(Request $req,$api_mode){
                     $tmp["purchased"]=true;
                 }
             }
-            $tmp["course_description"]=mb_convert_encoding($row->course_desc,"UTF-8");
+            $tmp["course_description"]=unicodeToUTF8( $row->course_desc); //mb_convert_encoding($row->course_desc,"UTF-8");
             $tmp["course_rate"]=0;
-            $tmp["course_purchase_key"]=encodeCourseIdToHash($row->course_id);
+            $tmp["course_purchase_key"]=encodeCourseIdToHash($cid);
             $tmp["chapters"]=$chaps;
             array_push($dt,$tmp);
         }
 
         $rst["data"] = $dt;
+        $rst["loaded"]=true;
     }
     else if($api_mode=="purchase"){
         if(Session::has('logininfo')
@@ -771,17 +925,28 @@ Route::post('/marketpage/api/{api_mode}',function(Request $req,$api_mode){
                     if($cid!=-1){
                         $urc ="user_registered_courses";
                     $qry = DB::table($urc)->where([['loginprovider','=',$id_provider],['id','=',$id],['course_id','=',$cid]])->count();
-                        if($qry==0){
+                    $ul = "userlist";
+                    $qry2 = DB::table($ul)->where([['loginprovider','=',$id_provider],['id','=',$id]]);
+                    $user_coin = 0;
+                    if($qry2->count()>0){
+                        $user_coin = $qry2->select("virtual_coin as vc")->get()->first()->vc;
+                    }
+                    $course_price = DB::table("course_list")->where([['course_id','=',$cid]])->select("cost")->get()->first()->cost;
+                    if($qry==0&&($user_coin-$course_price)>=0){
                            DB::table($urc)->insert(['loginprovider'=>$id_provider,'id'=>$id,'course_id'=>$cid,'completed_pages_count'=>0,'modify_date'=>DB::raw("now()")]);
-
+                            $qry2->update(['virtual_coin'=>($user_coin-$course_price)]);
                         }
                         
                     }
                 }
                 $rst["purchased"]=true;
+                
             }
+            $rst["loaded"]=true;
         }
+        
     }
+    $rst = json_decode(json_encode($rst,JSON_UNESCAPED_UNICODE));
     return Response::json($rst);
 })->where(['api_mode'=>'^(alllist|purchase)$']);
 Route::get('/user/api/{api_mode}',function($api_mode){
@@ -856,5 +1021,6 @@ Route::get('/user/api/{api_mode}',function($api_mode){
         }
         $rst["loaded"]=true;
     }
+    
     return Response::json($rst);
 })->where(['api_mode'=>'^(all|coin|courses)$']);

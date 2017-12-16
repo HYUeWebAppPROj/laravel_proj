@@ -6,24 +6,18 @@ header .btns_layout button{
     margin-top: 3px;
     height: 45px;
 }
-nav{  
-    background-color: #FF5E00;
-    /*background-color: #6253AE;*/
-    /*background:linear-gradient(90deg, #E36B6A, #DA7347, #E1B943, #67B889, #6BC4DA, #AD78B6);*/
-    height: 4em; 
+nav{ 
+    background-color: #FF5E00; 
+    height: 50px; 
     width:88vw; 
-} 
-nav ul.menu{
-    margin:0px;
-
 }
  @media screen and (max-width:767px){ 
      nav{
-        padding:0px; 
-        position: fixed; 
-        
-        width:100vw; 
-        z-index: 1000; 
+         padding:0px; 
+         position: fixed; 
+         margin-top: -120px;
+         width:100vw; 
+         z-index: 1000; 
      } 
      nav + *{ 
          padding-top:50px; 
@@ -31,7 +25,7 @@ nav ul.menu{
      nav ul.menu > li{ 
         font-size: 20px;
         text-align: start; 
-        min-height:2em;
+        padding-left:0.5em; 
      } 
      nav > ul.menu{ 
         display: block; 
@@ -60,7 +54,7 @@ nav ul.menu{
      } 
      nav  li > a:hover,nav > a :hover{ 
          text-decoration: none; 
-         padding: 2em;
+         padding: 10px;
      } 
      nav > input[type=checkbox]:checked + div > label[for=mbtn]::before{ 
          content:"←"; 
@@ -105,13 +99,8 @@ nav ul.menu{
     } 
 } 
 @media screen and (min-width:768px){ 
-    body>header{
-        position: fixed;
-        z-index: 600;
-        left:6vw;
-    }
     nav {
-        height: 4em;
+        height: 60px;
     }
     nav ul.menu > li{ 
         font-size: 17px;
@@ -122,42 +111,13 @@ nav ul.menu{
         text-align: center; 
     } 
     nav > ul.menu{ 
-        height:inherit;
-        display:flex;
-        flex-direction: row;
-        padding:0px;
-    } 
-    nav ul.menu > .logo{
-        height:100%;
-        width: auto;
-        padding-right:1em;
-    }
-    nav ul.menu > .logo a{
-        display:inline-block;
-        width:auto;
-        height: 100%;
-    }
-    nav ul.menu > .logo img{
-        width:auto;
-        height: 100%;
-    }
-    nav ul.menu > li.hoverable{
-        font-size: 17px;
-        font-weight: bold;
-        height: 100%; 
+        display: block; 
+        height:100%; 
+        list-style: none; 
         padding:0px; 
-        display:inline-block;
+        margin:0px; 
         text-align: center; 
-        -webkit-flex: 1; /* Safari 6.1+ */
-        -ms-flex: 1; /* IE 10 */ 
-        flex: 1;
-    }
-    /*
-    nav ul.menu li > a,nav > a{ 
-        color:white; 
-        text-decoration: none; 
-    }
-    */
+    } 
     nav>a>div,nav ul.menu li div{ 
         vertical-align: middle; 
         text-align: center; 
@@ -201,7 +161,7 @@ nav .mobile-menu-btn label:hover{
     border-radius: 0.5em; 
     border:none; 
 } 
-nav ul.menu > li.hoverable:hover,nav > a:hover{ 
+nav ul.menu > li:hover,nav > a:hover{ 
     background-color: orange; 
     -webkit-transition: all 0.4s ease; 
     transition: all 0.4s ease; 
