@@ -454,8 +454,7 @@ Route::post('/codepage/api/{lang}/{api_mode}',function(Request $req,$lang,$api_m
                 }
                 $success= countNode($ans_tree)<=$ca['cnt'];
                 $dom = removeScripts($dom);
-                $rst["result_data"] = $dom->saveHTML();#$dom->outerHtml
-              
+                $rst["result_data"] = $dom->saveHTML();
         }//end if lang=html
             
             $earn = DB::table('course_detail_list')->where([['course_id','=',$course_id],['page','=',$course_page]])->select('page_earn as pe')->get()->first()->pe;
@@ -653,6 +652,7 @@ Route::post('/codepage/api/{lang}/{api_mode}',function(Request $req,$lang,$api_m
     else{
        // $rst['log']="first if error";
     }
+    //$rst['laravel_Session'] = 
     return Response::json($rst);
 })->where(['lang' => '^(html|js|php|css)$','api_mode'=>'^(submit|save|reset|load|query_ref_with_hash)$']);
 

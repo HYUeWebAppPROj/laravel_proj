@@ -25,7 +25,9 @@
             <?php echo $__env->make("mpgnav_marketpage", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </header>
         <section class="content-view flex-layout-md flex-layout-md-horizontal flex-layout-lg flex-layout-lg-horizontal flex-layout-xlg flex-layout-xlg-horizontal">
-            <div class="hidden-xsm hidden-sm flex-item-md-lv1 flex-item-lg-lv1 flex-item-xlg-lv1 shopcart">
+            <input id="shopcartmobile" type="checkbox" hidden></input>
+            <?php if( Session::has("logininfo") ){ ?>
+            <div class="flex-item-md-lv1 flex-item-lg-lv1 flex-item-xlg-lv1 shopcart">
                 <div class="shopcart-title">
                    <span class="material-icons" style="font-size:11pt;">shopping_cart</span> 장바구니
 				</div>
@@ -77,6 +79,7 @@
                     </div>
                 </footer>
             </div>
+            <?php } ?>
             <div class="flex-item-md-lv2 flex-item-lg-lv3 flex-item-xlg-lv3 market-list-view" style="position:relative;height:100%;">
                 <div ng-init="detailpopupshow=false" ng-show="detailpopupshow" class="detail-content-popup">
                     <article class="detail-content-container">
@@ -150,7 +153,7 @@
                                     <button ng-click="viewDetailCourseContent(x)" class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">description</span>
                                     자세히보기
                                     </button>
-                                    <button ng-disabled="isExistInCart(x)" ng-click="addToCart(x)" class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">add_shopping_cart</span>
+                                    <button ng-disabled="isExistInCart(x)||!userdata.data_loaded" ng-click="addToCart(x)" class="flex-item-lv1"><span style="font-size:11pt;" class="material-icons">add_shopping_cart</span>
                                     장바구니에 담기
                                     </button>
                                 </div>
@@ -164,8 +167,10 @@
         </section>
         <footer>
             <div style="position:relative;width:100%;height:inherit">
-            <button class="full-width-button-with-padding hidden-md hidden-lg hidden-xlg">장바구니 보기</button>
-            </div>
+                <?php if( Session::has("logininfo") ){ ?>
+                 <button ng-click="showCartInMobile($event)" class="full-width-button-with-padding hidden-md hidden-lg hidden-xlg">장바구니 보기</button>
+                <?php } ?>
+           </div>
         </footer>
         <?php echo e(HTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js')); ?>        
         <?php echo e(HTML::script('js/jquery-3.2.1.min.js')); ?>
@@ -173,7 +178,16 @@
         <?php echo e(HTML::script('js/responsiveslides.min.js')); ?>
 
         <script>
-
+            function toggleShopCartForMobile(target){
+                var chkobj = document.getElementById("shopcartmobile");
+                chkobj.checked =!chkobj.checked;
+                var checked = chkobj.checked;
+                if(checked){
+                    target.innerHTML="장바구니 닫기";
+                }else{
+                    target.innerHTML="장바구니 보기";
+                }
+            }
         </script>
         <script >
             var pureScope = this;
@@ -187,23 +201,26 @@
                 };
                 
                 
-                $scope.userdata = {coin:0};
+                $scope.userdata = {coin:0,data_loaded:false};
                  $scope.courselist = [];
                  $scope.detailviewmodel={};
-                $scope.shopcart = {list:[{title:"test123 lang",chash:"abcdef",price:77}],listcount:function(){return list.length;},pricesum:function(){
+                $scope.shopcart = {list:[],listcount:function(){return list.length;},pricesum:function(){
                     var rst = 0;
                     for(var i =0;i<list.length;i++){
                         rst += list[i].price;
                     }
                     return rst;
                 }};
+                <?php if( Session::has("logininfo") ){ ?>
                 $scope.loadUserData =  function(){
                      var requestConfig = {method:"GET",
         url:"./user/api/coin"};
                         $scope.ajaxRequest(requestConfig,function(resp){
                             var data = resp.data;
+                            $scope.userdata.data_loaded = data.loaded;
                             if(data.loaded){
                                 $scope.userdata.coin = data.coin;
+                                
                                 console.log("user data load ok");
                             }
                             else{
@@ -212,9 +229,11 @@
                             }
                         },function(error){
                             $scope.userdata.coin = 0;
+                            $scope.userdata.data_loaded = false;
                             console.log("user data load error");
                         });
                 };
+                <?php } ?>
                 $scope.loadAllMarketList = function(){
                     var requestConfig = {method:"GET",
         url:"./marketpage/api/alllist"};
@@ -351,9 +370,18 @@
                     $scope.detailviewmodel = data;
                     $scope.detailpopupshow = true;
                 };
+                $scope.showCartInMobile = function($event){
+                    var context = $event;
+                    console.log(context);
+
+                    pureScope.toggleShopCartForMobile(context.target);
+                }
                 $scope.initApp = function(){
                     $scope.clearCart();
+                    <?php if( Session::has("logininfo") ){ ?>
                     $scope.loadUserData();
+                    <?php } ?>
+                    
                     $scope.loadAllMarketList();
                 }
             }]);

@@ -1,7 +1,8 @@
 <nav id="navbar">
 	<input type="checkbox" id="mbtn"></input>
+	<?php if( Session::has("logininfo") ){ ?>
 	<img class="menu-usr-icon" ng-click="popup.userinfo.show=!popup.userinfo.show" style="float:right;height:90%;padding:0px;border-radius:50%;cursor:pointer;" src='{{Session::get("logininfo")["avatar"]}}'>
-	
+	<?php } ?>
 	<div class="flex-layout flex-layout-horizontal hidden-md hidden-lg hidden-xlg">
 		<span class="flex-item-lv1 mobile-menu-btn" ><label for="mbtn">≡</label></span>
 		<div class="flex-item-lv12 nav-logo">
@@ -32,6 +33,7 @@
 			</div>
 		</div>
 		-->
+
 		<li class="logo hidden-xsm hidden-sm">
 			<a href="#"><img src="{{asset($imgpath.'/chap.png')}}"/></a>
 		</li>
