@@ -1,13 +1,9 @@
 <nav id="navbar">
 	<input type="checkbox" id="mbtn"></input>
-	<?php if( Session::has("logininfo") ){ ?>
-		<img class="menu-usr-icon" ng-click="popup.userinfo.show=!popup.userinfo.show" style="float:right;height:90%;padding:0px;border-radius:50%;cursor:pointer;margin-right:0.5em;margin-top:0.1em;" src='<?php echo e(Session::get("logininfo")["avatar"]); ?>'>
-
-	<?php } ?>
 	<div class="flex-layout flex-layout-horizontal hidden-md hidden-lg hidden-xlg">
 		<span class="flex-item-lv1 mobile-menu-btn" ><label for="mbtn">≡</label></span>
 		<div class="flex-item-lv12 nav-logo">
-			<a href="mainpage3"><img src="<?php echo e(asset($imgpath.'/chap.png')); ?>"/></a>
+			<a href="mainpage3"><img src="{{asset($imgpath.'/chap.png')}}"/></a>
 		</div>
 	</div>
 		
@@ -19,7 +15,7 @@
 					내정보
 				</div>
 				<div class="yourpic">
-					<img src="<?php echo e(asset($imgpath.'/avatar.png')); ?>"/>
+					<img src="{{asset($imgpath.'/avatar.png')}}"/>
 				</div>
 				<div class="nocss">
 					<ul>
@@ -36,7 +32,7 @@
 		-->
 
 		<li class="logo hidden-xsm hidden-sm">
-			<a href="#"><img src="<?php echo e(asset($imgpath.'/chap.png')); ?>"/></a>
+			<a href="./"><img src="{{asset($imgpath.'/chap.png')}}"/></a>
 		</li>
 		<?php foreach( $navitems as $a){ ?>
 		<li class="hoverable">
@@ -60,27 +56,3 @@
 <?php } ?>
 -->
 </nav>
-<!-- IMPORT POPUP2:: START-->
-			<div class="msg2" ng-show="popup.userinfo.show">
-				<div class="balloon2">
-					<div class="balloon2-wrapper">
-						<section class="user-info">
-						asd
-						</section>
-						<footer class="flex-layout flex-layout-horizontal buttom-user-bar">
-							<div style="flex:1">
-									<a href="#"><p>내 정보</p></a>
-							</div>
-							<div class="vertical-divider"></div>
-							<div style="flex:1">
-							
-									<a href="#"><p>내 강의실</p></a>
-								
-							</div>
-
-
-						</footer>
-					</div>
-				</div>
-			</div>
-			<!-- IMPORT POPUP2:: END -->

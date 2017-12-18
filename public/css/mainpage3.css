@@ -8,11 +8,71 @@ body > section.wrap{
     padding-top:4em;
 
 }
+div.mainimg-container{
+    position: relative;
+    min-height: 15em;
+    height: 55vh;
+}
+div.mainimg-render-text{
+    width:100%;
+    position: absolute;
+    text-align: center;
+    height: 100%;
+    line-height: 55vh;
+    padding:0px;
+    vertical-align: middle;
+    z-index: 30;
+    font-size: calc(10vh + 15pt);
+    color: #e9e9e9;
+    text-shadow: 2px 3px #333;
+}
+div.mainimg-render-text::before{
+    content:'';
+    -webkit-animation: automainimgtext 2s ease-in 1; 
+    animation: automainimgtext 2s ease-in 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
+    padding:0px;
+}
+@-webkit-keyframes automainimgtext {
+    0% { 
+        content:''
+    }
+    25% { 
+        content:'<'
+    }
+    50% { 
+        content:'< '
+    }
+    75% { 
+        content:'< /'
+    }
+    100% { 
+        content:'< />';
+     }
+  }
+.animated-cursor{
+    display:inline-block;
+    width: 3px;
+    content:' ';
+    height: 1em;
+    vertical-align: middle;
+    background-color:gray;
+    -webkit-animation: twinkle 0.7s ease-in infinite; /* Safari */
+    animation: twinkle 0.7s ease-in infinite;
+}
+@-webkit-keyframes twinkle {
+    0% { 
+        opacity: 1;
+    }
+    100% { 
+        opacity: 0;
+     }
+  }
 #mainimg{
     width: 100%;
-    opacity: 0.4;
     min-height: 15em;
-    height: 60vh;
+    height: 55vh;
     overflow: hidden;
     -webkit-animation: ongoingblur 2s ease-in 1; /* Safari */
     animation: ongoingblur 2s ease-in 1;

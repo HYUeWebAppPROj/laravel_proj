@@ -18,7 +18,10 @@
 
         <?php echo e(HTML::style('css/show_hidden.css')); ?>
 
-        
+        <?php echo e(HTML::style('css/popup_user_view.css')); ?>
+
+        <?php echo e(HTML::style('css/snackbar.css')); ?>
+
     </head>
     <body ng-app="marketApp" ng-controller="MainCtrl" data-ng-init="initApp()">
         <header>
@@ -37,11 +40,12 @@
                         장바구니가 비었습니다
                         </li>
 						<li ng-repeat="x in shopcart.list">
+                            <span ng-click="removeFromCart(x)" class="material-icons btn-remove-cart-item">close</span>
 							<p style="text-align:left;">
-                            <%% x.title %%>
+                                <%% x.title %%>
                             </p>
                             <p style="text-align:right;">
-                                <%% x.price %%>
+                                <%% x.price %%> 코인
                             </p>
 						</li>
 					</ul>
@@ -73,6 +77,7 @@
                             비우기
                             </button>
                             <button ng-disabled="shopcart.list.length<=0" ng-click="tryToPurchase()" class="flex-item-lv1">
+                            <span style="font-size:11pt;" class="material-icons">payment</span>
                             구매하기
                             </button>
                         </div>
@@ -121,7 +126,7 @@
                             </table>
                         </section>
                         <footer>
-
+                            <button ng-disabled="isExistInCart(detailviewmodel)||!userdata.data_loaded" ng-click="addToCartInDetail(detailviewmodel)" class="footer-btn" style="float:right;">장바구니에 담기</button>
                         </footer>
                     </article>
                 </div>
@@ -159,12 +164,20 @@
                                 </div>
                                 </footer>
                             </article>
-                        
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+        <div id="snc" class="snackbar-container">
+    <!--
+    <div id="snb" class="snackbar" style="visibility: visible;">
+    <p>
+    test
+    </p>
+    </div>
+    -->
+    </div>
         <footer>
             <div style="position:relative;width:100%;height:inherit">
                 <?php if( Session::has("logininfo") ){ ?>
@@ -176,6 +189,8 @@
         <?php echo e(HTML::script('js/jquery-3.2.1.min.js')); ?>
 
         <?php echo e(HTML::script('js/responsiveslides.min.js')); ?>
+
+        <?php echo e(HTML::script('js/snackbarutil.js')); ?>
 
         <script>
             function toggleShopCartForMobile(target){
@@ -204,6 +219,7 @@
                 $scope.userdata = {coin:0,data_loaded:false};
                  $scope.courselist = [];
                  $scope.detailviewmodel={};
+                 $scope.popup={userinfo: {show:false}};
                 $scope.shopcart = {list:[],listcount:function(){return list.length;},pricesum:function(){
                     var rst = 0;
                     for(var i =0;i<list.length;i++){
@@ -225,12 +241,12 @@
                             }
                             else{
                                 $scope.userdata.coin = 0;
-                                console.log("user data load fail");
+                                pureScope.showSnackBar("유저 데이터 로드 실패");
                             }
                         },function(error){
                             $scope.userdata.coin = 0;
                             $scope.userdata.data_loaded = false;
-                            console.log("user data load error");
+                            pureScope.showSnackBar("유저 데이터 로드 오류");
                         });
                 };
                 <?php } ?>
@@ -305,7 +321,21 @@
                     return chk!=null;
                 };
                 $scope.removeFromCart = function(data){
-                    
+                    var lst = $scope.shopcart.list;
+                    function fndIdx(list,data){
+                        var tmp = -1;
+                        for(var i =0;i<list.length;i++){
+                            if(list[i].chash===data.chash){
+                                tmp = i;
+                                break;
+                            }
+                        }
+                        return tmp;
+                    }
+                    var index = fndIdx(lst,data);
+                    if(index>=0){
+                         $scope.shopcart.list.splice(index,1);
+                    }
                 };
                 $scope.clearCart = function(){
                     $scope.shopcart.list = [];
@@ -314,6 +344,7 @@
                     //console.log(data);
                     var context = this;
                     console.log(context);
+                    pureScope.showSnackBar("장바구니에 담겼습니다");
                     var arr = $scope.shopcart.list;
                     var chk = $scope.findItemFromArray(arr,function(ele){
                         return ele.chash===data.chash;
@@ -322,6 +353,7 @@
                     arr.push(data);
                     }
                 };
+                <?php if( Session::has("logininfo") ){ ?>
                 $scope.tryToPurchase = function(){
                     var clist =$scope.shopcart.list;
                     if($scope.calcCartResult(clist)<0){
@@ -347,21 +379,24 @@
                             if(data.loaded){
                                 if(data.purchased){
                                     console.log("trypay success purchase");
+                                    pureScope.showSnackBar("강좌가 구매되었습니다");
                                     $scope.initApp();
+                                    
                                 }
                                 else{
-                                     console.log("trypay but fail to purchase");
+                                     pureScope.showSnackBarWithManyIcons("error","강좌구매에 실패했습니다");
                                 }
                             }
                             else{
-                                console.log("trypay but fail load");
+                                pureScope.showSnackBarWithManyIcons("error","강좌구매에 실패했습니다");
                             }
                         },function(error){
-                            console.log("trypay but error load");
+                            pureScope.showSnackBarWithManyIcons("error_outline","강좌 구매중 에러가 발생했습니다");
                             console.log(error);
                         });
                     }
                 };
+                <?php } ?>
                 $scope.refreshCourseList = function(){
                     $scope.initApp();
                     
@@ -375,6 +410,10 @@
                     console.log(context);
 
                     pureScope.toggleShopCartForMobile(context.target);
+                }
+                $scope.addToCartInDetail = function(x){
+                    $scope.detailpopupshow = false;
+                    $scope.addToCart(x);
                 }
                 $scope.initApp = function(){
                     $scope.clearCart();

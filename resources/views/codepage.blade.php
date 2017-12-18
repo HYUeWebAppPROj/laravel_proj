@@ -17,7 +17,7 @@
     {{HTML::style('css/flex_layout.css')}}
     {{HTML::style('css/fluid_layout.css')}}
     {{HTML::style('css/hover_table.css')}}
-    <?php header("Expires: 0"); ?>
+
 </head>
 <body ng-app="codingApp" ng-controller="MainCtrl">
     <input type="checkbox" id="popup_chker" hidden/>
@@ -361,7 +361,7 @@
     commandOngoing:false,
     commandOngoingShortMsg:''
     };
-    $scope.course_data={chash:"<?='7f5fca7da07c24c94d05fdcbbb54d77e' ?>",instruct:'unknown',tmphash:'',title:''};
+    $scope.course_data={chash:"<?=$def_hash ?>",instruct:'unknown',tmphash:'',title:''};
     $scope.coding={lang:"html"};
     $scope.demo = {result_user:"result of user data"};
     $scope.submitResult = {code:"",user:{point:0,success:false,earn:0,progress:0}};
@@ -549,22 +549,6 @@
         });
     };
     $scope.loadCode();
-    $scope.modeChanged = function(){
-        var dt = $scope.navdata.courseSelect;
-        if(dt=="HTML"){
-            $scope.coding.lang = "html";
-        }
-        <?php 
-        $output = array_map(function ($str) {
-    return preg_replace('/[a-z]+/', '', $str);
-        }, $examlist);
-        for($i=1;$i<count($output);$i++){
-             ?>
-            else if(dt=="<?=$examlist[$i]?>"){
-                $scope.coding.lang = "<?=strtolower($output[$i])?>";
-            }
-        <?php } ?>
-    };
      }]);
     </script>
 </body>

@@ -3,7 +3,7 @@
 	<div class="flex-layout flex-layout-horizontal hidden-md hidden-lg hidden-xlg">
 		<span class="flex-item-lv1 mobile-menu-btn" ><label for="mbtn">≡</label></span>
 		<div class="flex-item-lv12 nav-logo">
-			<a href="#"><img src="../chap.png"/></a>
+			<a href="./"><img src="../chap.png"/></a>
 		</div>
 	</div>
 	<ul class="menu">

@@ -8,7 +8,7 @@
 	</div>
 	<ul class="menu">
 		<li class="logo hidden-xsm hidden-sm">
-			<a href="#"><img src="{{asset($imgpath.'/chap.png')}}"/></a>
+			<a href="./"><img src="{{asset($imgpath.'/chap.png')}}"/></a>
 		</li>
 		<?php foreach( $navitems as $a){ ?>
 		<li class="hoverable">

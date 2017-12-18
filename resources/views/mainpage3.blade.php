@@ -81,7 +81,11 @@
 	</header>
 
 	<section class="wrap">
-        <div>
+        <div class="mainimg-container">
+            <div class="mainimg-render-text">
+            <!--&lt; /&gt;-->
+            <span class="animated-cursor"></span>
+            </div>
             <img id="mainimg" src="{{asset($imgpath.'/e6.jpg')}}">
         </div>
 

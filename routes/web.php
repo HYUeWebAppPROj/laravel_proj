@@ -13,7 +13,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use PHPHtmlParser\Dom;
-$navitem = array(array("title"=>"내정보","link"=>"./studypage?ver=2"),array("title"=>"내 강의실","link"=>"./codepage"),array("title"=>"마켓","link"=>"./marketpage2"));
+$navitem = array(array("title"=>"내정보","link"=>"./userpage"),array("title"=>"내 강의실","link"=>"./codepage"),array("title"=>"마켓","link"=>"./marketpage2"));
 
 $_ENV['navitem']=$navitem;
 Route::get('/', function () {
@@ -114,22 +114,32 @@ Route::get('/test', function () {
     
     return View::make("test")->with("msg","Hi!, Admin3.");
 });
-Route::get('/codepage', function () {
+Route::any('/codepage', function (Request $req) {
     //putLoginErrorMessage();
     if(Session::has('logininfo')){
 
         Session::put('injectionMainPageScript1','');
         $id = Session::get('logininfo')['name'];
         $id_provider = Session::get('logininfo')['loginprovider'];
-        
+       /* 
         $lst = DB::table('user_registered_courses')->join('course_list','user_registered_courses.course_id','=','course_list.course_id')
         ->where([['loginprovider','=',$id_provider],['id','=',$id]])
         ->select('course_displayed_name as cdn')->get();
         $list = array();
         foreach($lst as $row){
             array_push($list,$row->cdn);
+        }*/
+        $default_hash = "7f5fca7da07c24c94d05fdcbbb54d77e";
+        if($req->isMethod('post')||$req->isMethod('POST')){
+            //var_dump($req);
+            //echo "<br>\n";
+            $key = 'course';
+            if($req->has($key)){
+                $chash = $req->input($key);
+                $default_hash = $chash;
+            }
         }
-        return View::make("codepage")->with("navitems",$_ENV['navitem'])->with("examlist",$list);
+        return View::make("codepage")->with("navitems",$_ENV['navitem'])->with("def_hash",$default_hash);
     }
     else {
         Session::put('injectionMainPageScript1','alert("로그인 해주세요");');
@@ -247,6 +257,9 @@ Route::get('/codepage/user/{mode}/{chash?}',function($mode,$chash=""){
     $rst["data"]=$rst_dt;
     return Response::json($rst);
 })->where(['mode'=>'^(course|page)$','chash'=>'^(([a-f1-9])([a-f0-9]{31}))$']);
+Route::get("/userpage",function(){
+    return View::make("userpage")->with("imgpath","images/marketpage")->with("navitems",$_ENV['navitem']);
+});
 Route::post('/codepage/api/{lang}/{api_mode}',function(Request $req,$lang,$api_mode){
     $ipt = $req->json()->all();
     $rst = array();
@@ -855,6 +868,8 @@ Route::get('/user/api/{api_mode}',function($api_mode){
                 $cdl_qry = DB::table($tblnm_cdl)->where([['course_id','=',$cid]])->count();
                 $cs_qry = DB::table($tblnm_cs)->where([['stor_sess','=',$stor_sess],['course_id','=',$cid],['passed','=',1]])->count();
                 $ctmp["clear_all"]= $cdl_qry==$cs_qry;
+                $ctmp["desc"]= DB::table("course_list")->where([['course_id','=',$cid]])->get()->first()->course_desc;
+                $ctmp["progress"]=$ctmp["clear_all"]?100:(int)(($cs_qry*100)/$cdl_qry);
                 $chapterlist=array();
                 $qry2 = DB::table($tblnm_cdl)->leftJoin($tblnm_cs,function($join){
                     $join->on("course_detail_list.course_id","=","course_storage.course_id");
@@ -865,7 +880,7 @@ Route::get('/user/api/{api_mode}',function($api_mode){
                     $cstmp = array();
                     $cstmp["page_num"]=$row2->page;
                     $cstmp["page_title"]=$row2->pg;
-                    $cstmp["passed"]=$row2->passed;
+                    $cstmp["passed"]=$row2->passed==1;
                     $cstmp["chash"]=encodeCourseHash($cid,$row2->page);
                     array_push($chapterlist,$cstmp);
                 }
